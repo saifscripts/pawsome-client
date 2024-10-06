@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
 
-import { Navbar } from '@/components/navbar';
+import { Navbar } from '@/components/ui/navbar';
 
 export default function RootLayout({
   children,
@@ -10,9 +10,7 @@ export default function RootLayout({
   return (
     <div className="relative flex flex-col h-screen">
       <Navbar />
-      <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-        {children}
-      </main>
+      <main>{children}</main>
     </div>
   );
 }
