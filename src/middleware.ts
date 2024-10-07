@@ -10,13 +10,12 @@ const RoleBasedRoutes = {
 type IUserRole = keyof typeof RoleBasedRoutes;
 
 export function middleware(request: NextRequest) {
-  const user: {
-    name: string;
-    role: IUserRole;
-  } = {
-    name: 'Saif',
-    role: 'admin',
-  };
+  const user:
+    | {
+        name: string;
+        role: IUserRole;
+      }
+    | undefined = undefined;
 
   const { pathname } = request.nextUrl;
 
