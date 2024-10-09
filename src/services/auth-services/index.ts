@@ -1,8 +1,8 @@
 'use server';
 
 import nexios from '@/lib/nexios';
-import { IDecodedUser } from '@/types';
-import { IAuthResponse } from '@/types/global.type';
+import { IUser } from '@/types';
+import { IAuthResponse, IUserResponse } from '@/types/global.type';
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { FieldValues } from 'react-hook-form';
@@ -29,14 +29,24 @@ export const loginUser = async (userData: FieldValues) => {
   return data;
 };
 
+export const logoutUser = () => {
+  cookies().delete('accessToken');
+  cookies().delete('refreshToken');
+};
+
 export const getCurrentUser = async () => {
   const accessToken = cookies().get('accessToken')?.value;
 
-  let decodedToken: IDecodedUser | null = null;
+  let decodedToken: IUser | null = null;
 
   if (accessToken) {
     decodedToken = await jwtDecode(accessToken);
   }
 
   return decodedToken;
+};
+
+export const getMe = async () => {
+  const { data } = await nexios.get<IUserResponse>('/users/me');
+  return data;
 };

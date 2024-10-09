@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { getCurrentUser } from './services/auth-services';
 
 const AuthRoutes = ['/login', '/register'];
-const RoleBasedRoutes = {
+export const RoleBasedRoutes = {
   admin: [/^\/dashboard/],
   user: [/^\/profile/],
 };
