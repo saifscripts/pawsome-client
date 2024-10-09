@@ -10,7 +10,7 @@ export interface IResponse<T> {
   data: T;
 }
 
-export type IRegisterResponse = IResponse<{
+export type IAuthResponse = IResponse<{
   accessToken: string;
   refreshToken: string;
 }>;

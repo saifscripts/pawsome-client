@@ -1,9 +1,13 @@
 import { Button } from '@nextui-org/button';
 
-export default function AppSubmit() {
+interface IProps {
+  children?: React.ReactNode;
+}
+
+export default function AppSubmit({ children }: IProps) {
   return (
     <Button type="submit" className="w-full">
-      Submit
+      {children || 'Submit'}
     </Button>
   );
 }

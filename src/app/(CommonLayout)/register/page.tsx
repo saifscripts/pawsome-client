@@ -3,10 +3,10 @@ import AppForm from '@/components/form/AppForm';
 import AppInput from '@/components/form/AppInput';
 import AppSubmit from '@/components/form/AppSubmit';
 import { useUserRegistration } from '@/hooks/auth.hook';
-import registerSchema from '@/schemas/register.schema';
+import { registerSchema } from '@/schemas/auth.schema';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 
-export default function Register() {
+export default function RegisterPage() {
   const { mutate: registerUser } = useUserRegistration();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     registerUser(data);
@@ -32,7 +32,7 @@ export default function Register() {
           label="Password"
           placeholder="Enter a password"
         />
-        <AppSubmit />
+        <AppSubmit>Register</AppSubmit>
       </AppForm>
     </div>
   );
