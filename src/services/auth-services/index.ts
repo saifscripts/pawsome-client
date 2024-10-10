@@ -2,7 +2,7 @@
 
 import nexios from '@/lib/nexios';
 import { IUser } from '@/types';
-import { IAuthResponse, IUserResponse } from '@/types/global.type';
+import { IAuthResponse, IResponse, IUserResponse } from '@/types/global.type';
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { FieldValues } from 'react-hook-form';
@@ -32,6 +32,24 @@ export const loginUser = async (userData: FieldValues) => {
 export const logoutUser = () => {
   cookies().delete('accessToken');
   cookies().delete('refreshToken');
+};
+
+export const forgetPassword = async (fieldValues: FieldValues) => {
+  const { data } = await nexios.post<IResponse<null>>(
+    '/auth/forget-password',
+    fieldValues
+  );
+
+  return data;
+};
+
+export const resetPassword = async (fieldValues: FieldValues) => {
+  const { data } = await nexios.put<IResponse<null>>(
+    '/auth/reset-password',
+    fieldValues
+  );
+
+  return data;
 };
 
 export const getCurrentUser = async () => {
