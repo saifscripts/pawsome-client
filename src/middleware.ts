@@ -9,7 +9,7 @@ const AuthRoutes = [
   '/reset-password',
 ];
 export const RoleBasedRoutes = {
-  admin: [/^\/dashboard/],
+  admin: [/^\/dashboard/, /^\/profile/],
   user: [/^\/profile/],
 };
 

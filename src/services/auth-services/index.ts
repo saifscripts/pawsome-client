@@ -2,7 +2,7 @@
 
 import nexios from '@/lib/nexios';
 import { IUser } from '@/types';
-import { IAuthResponse, IResponse, IUserResponse } from '@/types/global.type';
+import { IAuthResponse, IResponse } from '@/types/global.type';
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { FieldValues } from 'react-hook-form';
@@ -62,9 +62,4 @@ export const getCurrentUser = async () => {
   }
 
   return decodedToken;
-};
-
-export const getMe = async () => {
-  const { data } = await nexios.get<IUserResponse>('/users/me');
-  return data;
 };

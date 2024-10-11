@@ -1,9 +1,20 @@
-import { title } from '@/components/primitives';
+'use client';
+
+import { useUser } from '@/hooks/profile.hook';
+import Header from './_components/Header';
+import Topbar from './_components/Topbar';
 
 export default function ProfilePage() {
+  const { data } = useUser();
+
+  const user = data?.data;
+
+  if (!user) return <p>Loading...</p>;
+
   return (
-    <div>
-      <h1 className={title()}>Profile</h1>
-    </div>
+    <>
+      <Topbar user={user} />
+      <Header user={user} />
+    </>
   );
 }

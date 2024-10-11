@@ -1,12 +1,11 @@
 import { useAuth } from '@/contexts/auth.context';
 import {
   forgetPassword,
-  getMe,
   loginUser,
   registerUser,
   resetPassword,
 } from '@/services/auth-services';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -92,12 +91,5 @@ export const useResetPassword = () => {
     onError: (error) => {
       toast.error(error.message);
     },
-  });
-};
-
-export const useUser = () => {
-  return useQuery({
-    queryKey: ['USER'],
-    queryFn: async () => await getMe(),
   });
 };
