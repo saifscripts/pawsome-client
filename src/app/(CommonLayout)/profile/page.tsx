@@ -2,6 +2,7 @@
 
 import { useUser } from '@/hooks/profile.hook';
 import Header from './_components/Header';
+import Tabs from './_components/Tabs';
 import Topbar from './_components/Topbar';
 
 export default function ProfilePage() {
@@ -15,6 +16,7 @@ export default function ProfilePage() {
     <>
       <Topbar user={user} />
       <Header user={user} />
+      <Tabs />
     </>
   );
 }
