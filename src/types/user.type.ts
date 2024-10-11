@@ -23,6 +23,7 @@ export interface IUser {
   followers: string[];
   following: string[];
   posts: string[];
+  createdAt: Date;
   isDeleted: boolean;
 }
 
