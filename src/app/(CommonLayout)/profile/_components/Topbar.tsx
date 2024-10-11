@@ -1,15 +1,14 @@
 'use client';
 
-import { IUser } from '@/types';
+import { useUser } from '@/hooks/profile.hook';
 import { Button } from '@nextui-org/button';
 import { useRouter } from 'next/navigation';
 
-interface IProps {
-  user: IUser;
-}
-
-export default function Topbar({ user }: IProps) {
+export default function Topbar() {
   const router = useRouter();
+  const { data } = useUser();
+  const user = data?.data;
+  if (!user) return null;
 
   return (
     <div className="flex gap-2 items-center p-2 border-b">

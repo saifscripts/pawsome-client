@@ -1,7 +1,6 @@
 'use client';
 
-import { useUploadAvatar } from '@/hooks/profile.hook';
-import { IUser } from '@/types';
+import { useUploadAvatar, useUser } from '@/hooks/profile.hook';
 import { Spinner } from '@nextui-org/spinner';
 import { format } from 'date-fns';
 import { PencilIcon } from 'lucide-react';
@@ -9,21 +8,23 @@ import Image from 'next/image';
 import { ChangeEventHandler } from 'react';
 import EditProfile from './EditProfile';
 
-interface IProps {
-  user: IUser;
-}
 
-export default function Header({ user }: IProps) {
-  const { mutate: uploadAvatar, isPending } = useUploadAvatar();
 
-  const handleUploadImage: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('avatar', file);
-      uploadAvatar(formData);
-    }
-  };
+export default function Header() {
+    const { data } = useUser();
+    const { mutate: uploadAvatar, isPending } = useUploadAvatar();
+    
+    const handleUploadImage: ChangeEventHandler<HTMLInputElement> = (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('avatar', file);
+            uploadAvatar(formData);
+        }
+    };
+    
+    const user = data?.data;
+    if (!user) return null;
 
   return (
     <header>
