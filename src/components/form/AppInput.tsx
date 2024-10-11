@@ -25,7 +25,7 @@ interface IProps {
 export default function AppInput({
   name,
   variant = 'bordered',
-  labelPlacement = 'outside',
+  labelPlacement,
   ...props
 }: IProps) {
   const {

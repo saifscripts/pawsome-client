@@ -2,11 +2,21 @@
 
 import axios from '@/lib/axios';
 import { IUserResponse } from '@/types';
+import { AxiosError } from 'axios';
+import { FieldValues } from 'react-hook-form';
 
 export const getMe = async () => {
   const { data } = await axios.get<IUserResponse>('/users/me');
-  console.log(data);
   return data;
+};
+
+export const updateProfile = async (fieldValues: FieldValues) => {
+  try {
+    const { data } = await axios.put<IUserResponse>('/users/me', fieldValues);
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
 };
 
 export const uploadAvatar = async (formData: FormData) => {

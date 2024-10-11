@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { PencilIcon } from 'lucide-react';
 import Image from 'next/image';
 import { ChangeEventHandler } from 'react';
+import EditProfile from './EditProfile';
 
 interface IProps {
   user: IUser;
@@ -57,7 +58,10 @@ export default function Header({ user }: IProps) {
           )}
         </div>
       </div>
-      <div className="mt-20 p-4">
+      <div className="h-20 w-full p-4 flex justify-end">
+        <EditProfile />
+      </div>
+      <div className="p-4">
         <h1 className="text-xl uppercase">{user?.name}</h1>
         <p>@{user?.email?.split('@')[0]}</p>
         <p>Joined at {format(user?.createdAt, 'PPP')}</p>
