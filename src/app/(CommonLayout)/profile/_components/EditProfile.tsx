@@ -26,14 +26,6 @@ export default function EditProfile() {
   const { data } = useUser();
   const user = data?.data;
 
-  if (!user) return null;
-
-  const defaultValues = {
-    name: user?.name || '',
-    email: user?.email || '',
-    phone: user?.phone || '',
-  };
-
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     updateProfile(data);
   };
@@ -43,6 +35,14 @@ export default function EditProfile() {
       onClose();
     }
   }, [isPending, isSuccess]);
+
+  if (!user) return null;
+
+  const defaultValues = {
+    name: user?.name || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+  };
 
   return (
     <>

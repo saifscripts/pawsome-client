@@ -1,4 +1,5 @@
 import { SVGProps } from 'react';
+import { IPost } from './post.type';
 import { IUser } from './user.type';
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
@@ -17,3 +18,4 @@ export type IAuthResponse = IResponse<{
 }>;
 
 export type IUserResponse = IResponse<IUser>;
+export type IPostResponse = IResponse<IPost>;

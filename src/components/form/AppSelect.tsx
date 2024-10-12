@@ -1,11 +1,10 @@
 'use client';
 
-import { Input } from '@nextui-org/input';
+import { Select, SelectItem } from '@nextui-org/select';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 interface IProps {
   name: string;
-  type?: string;
   variant?: 'bordered' | 'flat' | 'faded' | 'underlined' | undefined;
   color?:
     | 'default'
@@ -18,14 +17,13 @@ interface IProps {
   label?: React.ReactNode;
   labelPlacement?: 'inside' | 'outside' | 'outside-left';
   placeholder?: string;
-  startContent?: React.ReactNode;
-  endContent?: React.ReactNode;
+  options: { key: string; label: string }[];
 }
 
-export default function AppInput({
+export default function AppSelect({
   name,
   variant = 'bordered',
-  labelPlacement,
+  options = [],
   ...props
 }: IProps) {
   const {
@@ -33,17 +31,22 @@ export default function AppInput({
     formState: { errors },
   } = useFormContext();
 
-  const value = useWatch({ name });
+  const selectedValue = useWatch({
+    name,
+  });
 
   return (
-    <Input
-      value={value}
-      onChange={(e) => setValue(name, e.target.value)}
+    <Select
       errorMessage={errors[name]?.message as string}
       isInvalid={!!errors[name]}
       variant={variant}
-      labelPlacement={labelPlacement}
+      selectedKeys={[selectedValue]}
+      onChange={(e) => setValue(name, e.target.value)}
       {...props}
-    />
+    >
+      {options.map((option) => (
+        <SelectItem key={option.key}>{option.label}</SelectItem>
+      ))}
+    </Select>
   );
 }
