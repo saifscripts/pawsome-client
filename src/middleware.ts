@@ -9,8 +9,8 @@ const AuthRoutes = [
   '/reset-password',
 ];
 export const RoleBasedRoutes = {
-  admin: [/^\/dashboard/, /^\/profile/],
-  user: [/^\/profile/],
+  admin: [/^\/dashboard/, '/create-post'],
+  user: ['/create-post'],
 };
 
 export async function middleware(request: NextRequest) {
@@ -28,7 +28,9 @@ export async function middleware(request: NextRequest) {
 
   if (
     user?.role &&
-    RoleBasedRoutes[user?.role].some((route: RegExp) => route.test(pathname))
+    RoleBasedRoutes[user?.role].some((route: RegExp | string) =>
+      pathname.match(route)
+    )
   ) {
     return NextResponse.next();
   }
@@ -39,8 +41,8 @@ export async function middleware(request: NextRequest) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    '/profile/:path*',
     '/dashboard/:path*',
+    '/create-post',
     '/login',
     '/register',
     '/forget-password',

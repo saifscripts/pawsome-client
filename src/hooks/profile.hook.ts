@@ -1,9 +1,11 @@
 import {
   getMe,
+  getUser,
   updateProfile,
   uploadAvatar,
 } from '@/services/profile-services';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -27,10 +29,19 @@ export const useUploadAvatar = () => {
   });
 };
 
-export const useUser = () => {
+export const useMe = () => {
   return useQuery({
     queryKey: ['ME'],
     queryFn: async () => await getMe(),
+  });
+};
+
+export const useUser = () => {
+  const { userId } = useParams();
+
+  return useQuery({
+    queryKey: ['USER'],
+    queryFn: async () => await getUser(userId as string),
   });
 };
 
@@ -41,8 +52,8 @@ export const useUpdateProfile = () => {
     mutationKey: ['ME'],
     mutationFn: updateProfile,
     onSuccess: (data) => {
-      console.log(data);
       if (data?.success) {
+        queryClient.invalidateQueries({ queryKey: ['USER'] });
         queryClient.invalidateQueries({ queryKey: ['ME'] });
         toast.success('Profile updated successfully!');
       } else {

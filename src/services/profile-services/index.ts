@@ -10,6 +10,11 @@ export const getMe = async () => {
   return data;
 };
 
+export const getUser = async (id: string) => {
+  const { data } = await axios.get<IUserResponse>(`/users/${id}`);
+  return data;
+};
+
 export const updateProfile = async (fieldValues: FieldValues) => {
   try {
     const { data } = await axios.put<IUserResponse>('/users/me', fieldValues);

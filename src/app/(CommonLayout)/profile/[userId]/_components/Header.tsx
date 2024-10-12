@@ -8,23 +8,19 @@ import Image from 'next/image';
 import { ChangeEventHandler } from 'react';
 import EditProfile from './EditProfile';
 
-
-
 export default function Header() {
-    const { data } = useUser();
-    const { mutate: uploadAvatar, isPending } = useUploadAvatar();
-    
-    const handleUploadImage: ChangeEventHandler<HTMLInputElement> = (e) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('avatar', file);
-            uploadAvatar(formData);
-        }
-    };
-    
-    const user = data?.data;
-    if (!user) return null;
+  const { mutate: uploadAvatar, isPending } = useUploadAvatar();
+  const { data } = useUser();
+  const user = data?.data;
+
+  const handleUploadImage: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('avatar', file);
+      uploadAvatar(formData);
+    }
+  };
 
   return (
     <header>
@@ -65,7 +61,7 @@ export default function Header() {
       <div className="p-4">
         <h1 className="text-xl uppercase">{user?.name}</h1>
         <p>@{user?.email?.split('@')[0]}</p>
-        <p>Joined at {format(user?.createdAt, 'PPP')}</p>
+        <p>Joined at {user?.createdAt && format(user?.createdAt, 'PPP')}</p>
         <div className="flex gap-2 items-center">
           <p>{user?.following.length} Following</p>
           <p>{user?.followers.length} Followers</p>

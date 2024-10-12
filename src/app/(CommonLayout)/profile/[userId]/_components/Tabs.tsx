@@ -4,41 +4,41 @@ import { useUser } from '@/hooks/profile.hook';
 import { Chip } from '@nextui-org/chip';
 import { Tabs as NextTabs, Tab } from '@nextui-org/tabs';
 import {
-    ContactIcon,
-    SquarePenIcon,
-    UserCheckIcon,
-    UserPlusIcon,
+  ContactIcon,
+  SquarePenIcon,
+  UserCheckIcon,
+  UserPlusIcon,
 } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 export default function Tabs() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { userId } = useParams();
   const { data } = useUser();
   const user = data?.data;
-  if (!user) return null;
-  const router = useRouter();
-  const pathname = usePathname()
 
   const tabs = [
     {
-      path: '/profile',
+      path: `/profile/${userId}`,
       title: 'Posts',
       icon: SquarePenIcon,
       value: user?.posts?.length,
     },
     {
-      path: '/profile/about',
+      path: `/profile/${userId}/about`,
       title: 'About',
       icon: ContactIcon,
       value: 0,
     },
     {
-      path: '/profile/following',
+      path: `/profile/${userId}/following`,
       title: 'Following',
       icon: UserPlusIcon,
       value: user?.following?.length,
     },
     {
-      path: '/profile/followers',
+      path: `/profile/${userId}/followers`,
       title: 'Followers',
       icon: UserCheckIcon,
       value: user?.followers?.length,
@@ -59,7 +59,7 @@ export default function Tabs() {
           tab: 'max-w-fit px-0 h-12',
           tabContent: 'group-data-[selected=true]:text-[#06b6d4]',
         }}
-        onSelectionChange={(path) => router.push(path as string)}
+        onSelectionChange={(path) => router.replace(path as string)}
       >
         {tabs.map((tab) => (
           <Tab

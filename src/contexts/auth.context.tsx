@@ -42,8 +42,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
 
     if (
-      RoleBasedRoutes[user?.role as IUserRole].some((route: RegExp) =>
-        route.test(pathname)
+      RoleBasedRoutes[user?.role as IUserRole].some((route: RegExp | string) =>
+        pathname.match(route)
       )
     ) {
       router.push('/');

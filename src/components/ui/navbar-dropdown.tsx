@@ -41,7 +41,7 @@ export default function NavbarDropdown() {
       </DropdownTrigger>
       <DropdownMenu aria-label="Profile Actions" variant="flat">
         <DropdownItem
-          isReadOnly
+          onClick={() => handleClick(`/profile/${user._id}`)}
           key="profile"
           className="h-14 gap-2 opacity-100"
         >
@@ -58,7 +58,7 @@ export default function NavbarDropdown() {
             }}
           />
         </DropdownItem>
-        <DropdownItem onClick={() => handleClick('/profile')}>
+        <DropdownItem onClick={() => handleClick(`/profile/${user._id}`)}>
           Profile
         </DropdownItem>
         <DropdownItem onClick={() => handleClick('/dashboard')}>
