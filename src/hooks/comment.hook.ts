@@ -1,6 +1,7 @@
 import {
   createComment,
   deleteComment,
+  editComment,
   getComments,
 } from '@/services/comment-services';
 import { IPost } from '@/types';
@@ -43,6 +44,33 @@ export const useDeleteComment = (post: IPost) => {
           (comment) => comment._id !== data?.data?._id
         );
         toast.success('Comment deleted successfully!');
+      } else {
+        toast.error(data?.message);
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useEditComment = (post: IPost) => {
+  return useMutation<
+    any,
+    Error,
+    {
+      id: string;
+      data: FieldValues;
+    }
+  >({
+    mutationKey: ['COMMENT'],
+    mutationFn: editComment,
+    onSuccess: (data) => {
+      if (data?.success) {
+        post.comments = post.comments.map((comment) =>
+          comment._id === data?.data?._id ? data?.data : comment
+        );
+        toast.success('Comment edited successfully!');
       } else {
         toast.error(data?.message);
       }

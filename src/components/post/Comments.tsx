@@ -25,7 +25,7 @@ export default function Comments({
   post: IPost;
   author: IUser;
 }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [isFollowed, setIsFollowed] = useState(false);
   const [form, setForm] = useState<UseFormReturn | null>(null);
 
@@ -63,6 +63,7 @@ export default function Comments({
         isOpen={isOpen}
         onClose={onClose}
         scrollBehavior="inside"
+        onOpenChange={onOpenChange}
       >
         <ModalContent>
           <ModalHeader className="block w-full pb-2">

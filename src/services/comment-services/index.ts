@@ -38,3 +38,18 @@ export const deleteComment = async (commentId: string) => {
     throw new Error((error as AxiosError<any>)?.response?.data?.message);
   }
 };
+
+export const editComment = async (options: {
+  id: string;
+  data: FieldValues;
+}) => {
+  try {
+    const { data } = await axios.put<IResponse<IComment>>(
+      `/comments/${options.id}`,
+      options.data
+    );
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
+};

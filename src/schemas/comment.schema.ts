@@ -11,3 +11,12 @@ export const createCommentSchema = z.object({
     .min(1, 'Content cannot be empty')
     .max(200, 'Content must not exceed 200 characters'),
 });
+
+export const updateCommentSchema = z.object({
+  content: z
+    .string({
+      required_error: 'Content is required',
+    })
+    .min(1, 'Content cannot be empty')
+    .max(200, 'Content must not exceed 200 characters'),
+});
