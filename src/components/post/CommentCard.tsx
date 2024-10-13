@@ -1,5 +1,5 @@
 import { useDeleteComment } from '@/hooks/comment.hook';
-import { IComment, IPost } from '@/types';
+import { IComment } from '@/types';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
@@ -20,20 +20,14 @@ import { EllipsisIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import EditComment from './EditComment';
 
-export default function CommentCard({
-  comment,
-  post,
-}: {
-  comment: IComment;
-  post: IPost;
-}) {
+export default function CommentCard({ comment }: { comment: IComment }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const {
     mutate: deleteComment,
     isPending,
     isSuccess,
     data: deletedComment,
-  } = useDeleteComment(post);
+  } = useDeleteComment();
   const [mode, setMode] = useState('view');
 
   useEffect(() => {
@@ -85,9 +79,7 @@ export default function CommentCard({
         </div>
       )}
 
-      {mode === 'edit' && (
-        <EditComment comment={comment} post={post} setMode={setMode} />
-      )}
+      {mode === 'edit' && <EditComment comment={comment} setMode={setMode} />}
       <Divider className="my-2" />
       {/* Delete Comment Modal */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

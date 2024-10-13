@@ -1,6 +1,6 @@
 import { useEditComment } from '@/hooks/comment.hook';
 import { updateCommentSchema } from '@/schemas/comment.schema';
-import { IComment, IPost } from '@/types';
+import { IComment } from '@/types';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 import AppForm from '../form/AppForm';
@@ -9,11 +9,9 @@ import AppSubmit from '../form/AppSubmit';
 
 export default function EditComment({
   comment,
-  post,
   setMode,
 }: {
   comment: IComment;
-  post: IPost;
   setMode: Dispatch<SetStateAction<string>>;
 }) {
   const {
@@ -21,7 +19,7 @@ export default function EditComment({
     isPending,
     isSuccess,
     data: updatedComment,
-  } = useEditComment(post);
+  } = useEditComment();
 
   const defaultValues = {
     content: comment.content,
