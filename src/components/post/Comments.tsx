@@ -104,7 +104,7 @@ export default function Comments({
           </ModalHeader>
           <ModalBody>
             {post?.comments?.map((comment) => (
-              <CommentCard key={comment._id} comment={comment} />
+              <CommentCard key={comment._id} comment={comment} post={post} />
             ))}
           </ModalBody>
           <ModalFooter className="block w-full">

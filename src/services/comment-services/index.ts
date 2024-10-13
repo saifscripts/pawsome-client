@@ -27,3 +27,14 @@ export const getComments = async (postId: string) => {
     throw new Error((error as AxiosError<any>)?.response?.data?.message);
   }
 };
+
+export const deleteComment = async (commentId: string) => {
+  try {
+    const { data } = await axios.delete<IResponse<IComment>>(
+      `/comments/${commentId}`
+    );
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
+};
