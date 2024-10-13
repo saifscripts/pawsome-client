@@ -16,6 +16,7 @@ import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
 import AppForm from '../form/AppForm';
 import AppInput from '../form/AppInput';
 import AppSubmit from '../form/AppSubmit';
+import CommentCard from './CommentCard';
 
 export default function Comments({
   post,
@@ -26,13 +27,14 @@ export default function Comments({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isFollowed, setIsFollowed] = useState(false);
+  const [form, setForm] = useState<UseFormReturn | null>(null);
+
   const {
     mutate: createComment,
     isPending,
     isSuccess,
     data: comment,
-  } = useCreateComment();
-  const [form, setForm] = useState<UseFormReturn | null>(null);
+  } = useCreateComment(post);
 
   const defaultValues = {
     postId: post._id,
@@ -40,7 +42,6 @@ export default function Comments({
   };
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
     data.postId = post._id;
     createComment(data);
   };
@@ -102,11 +103,9 @@ export default function Comments({
             </h2>
           </ModalHeader>
           <ModalBody>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              pulvinar risus non risus hendrerit venenatis. Pellentesque sit
-              amet hendrerit risus, sed porttitor quam.
-            </p>
+            {post?.comments?.map((comment) => (
+              <CommentCard key={comment._id} comment={comment} />
+            ))}
           </ModalBody>
           <ModalFooter className="block w-full">
             <AppForm

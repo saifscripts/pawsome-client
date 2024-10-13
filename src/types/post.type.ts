@@ -1,4 +1,5 @@
 import { PostCategories } from '@/constants';
+import { IComment } from './comment.type';
 
 export type IPostCategory = (typeof PostCategories)[number];
 
@@ -11,7 +12,7 @@ export interface IPost {
   imageUrls?: string[];
   upvotes: [string];
   downvotes: [string];
-  comments: [string];
+  comments: IComment[];
   isPremium: boolean;
   isPublished: boolean;
   createdAt: Date;
