@@ -12,6 +12,11 @@ export const createPost = async (formData: FormData) => {
   return data;
 };
 
+export const deletePost = async (id: string) => {
+  const { data } = await axios.delete<IPostResponse>(`/posts/${id}`);
+  return data;
+};
+
 export const upvotePost = async (id: string) => {
   const { data } = await axios.put<IPostResponse>(`/posts/${id}/upvote`);
   return data;

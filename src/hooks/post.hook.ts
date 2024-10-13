@@ -1,4 +1,9 @@
-import { createPost, downvotePost, upvotePost } from '@/services/post-services';
+import {
+  createPost,
+  deletePost,
+  downvotePost,
+  upvotePost,
+} from '@/services/post-services';
 import { IPost, IPostResponse } from '@/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -12,7 +17,29 @@ export const useCreatePost = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries({ queryKey: ['POST'] });
+        queryClient.invalidateQueries({ queryKey: ['USER'] });
         toast.success('Post created successfully!');
+      } else {
+        toast.error(data?.message);
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<any, Error, string>({
+    mutationKey: ['POST'],
+    mutationFn: deletePost,
+    onSuccess: (data) => {
+      if (data?.success) {
+        queryClient.invalidateQueries({ queryKey: ['POST'] });
+        queryClient.invalidateQueries({ queryKey: ['USER'] });
+        toast.success('Post deleted successfully!');
       } else {
         toast.error(data?.message);
       }

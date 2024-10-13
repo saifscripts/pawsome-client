@@ -8,7 +8,8 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
-import Comments from './Comments';
+import CommentsModal from './CommentsModal';
+import PostDropdown from './PostDropdown';
 
 export default function PostCard({
   post,
@@ -21,6 +22,8 @@ export default function PostCard({
   const { mutate: upvotePost } = useUpvotePost(post);
   const { mutate: downvotePost } = useDownvotePost(post);
   const { user } = useAuth();
+
+  const isMyPost = user?._id === author?._id;
 
   return (
     <Card className="">
@@ -36,20 +39,25 @@ export default function PostCard({
             </h5>
           </div>
         </div>
-        <Button
-          className={
-            isFollowed
-              ? 'bg-transparent text-foreground border-default-200'
-              : ''
-          }
-          color="primary"
-          radius="full"
-          size="sm"
-          variant={isFollowed ? 'bordered' : 'solid'}
-          onPress={() => setIsFollowed(!isFollowed)}
-        >
-          {isFollowed ? 'Unfollow' : 'Follow'}
-        </Button>
+
+        {isMyPost ? (
+          <PostDropdown post={post} />
+        ) : (
+          <Button
+            className={
+              isFollowed
+                ? 'bg-transparent text-foreground border-default-200'
+                : ''
+            }
+            color="primary"
+            radius="full"
+            size="sm"
+            variant={isFollowed ? 'bordered' : 'solid'}
+            onPress={() => setIsFollowed(!isFollowed)}
+          >
+            {isFollowed ? 'Unfollow' : 'Follow'}
+          </Button>
+        )}
       </CardHeader>
       <CardBody className="px-3 py-0 text-small text-default-400 grid grid-cols-[2fr_1fr] gap-4">
         <div>
@@ -97,7 +105,7 @@ export default function PostCard({
             <ArrowDownIcon size={16} />
           </Button>
         </div>
-        <Comments post={post} author={author} />
+        <CommentsModal post={post} author={author} />
       </CardFooter>
     </Card>
   );

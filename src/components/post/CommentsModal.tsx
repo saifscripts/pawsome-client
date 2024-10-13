@@ -18,7 +18,7 @@ import AppInput from '../form/AppInput';
 import AppSubmit from '../form/AppSubmit';
 import CommentCard from './CommentCard';
 
-export default function Comments({
+export default function CommentsModal({
   post,
   author,
 }: {
