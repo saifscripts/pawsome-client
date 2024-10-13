@@ -1,4 +1,5 @@
 import { SVGProps } from 'react';
+import { IComment } from './comment.type';
 import { IPost } from './post.type';
 import { IUser } from './user.type';
 
@@ -19,3 +20,4 @@ export type IAuthResponse = IResponse<{
 
 export type IUserResponse = IResponse<IUser>;
 export type IPostResponse = IResponse<IPost>;
+export type ICommentResponse = IResponse<IComment>;

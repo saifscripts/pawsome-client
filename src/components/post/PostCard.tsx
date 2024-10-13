@@ -8,6 +8,7 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import Comments from './Comments';
 
 export default function PostCard({
   post,
@@ -96,12 +97,7 @@ export default function PostCard({
             <ArrowDownIcon size={16} />
           </Button>
         </div>
-        <div className="flex gap-1">
-          <p className="font-semibold text-default-400 text-small">
-            {post?.comments?.length}
-          </p>
-          <p className="text-default-400 text-small">Comments</p>
-        </div>
+        <Comments post={post} author={author} />
       </CardFooter>
     </Card>
   );

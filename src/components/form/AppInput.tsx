@@ -20,12 +20,14 @@ interface IProps {
   placeholder?: string;
   startContent?: React.ReactNode;
   endContent?: React.ReactNode;
+  className?: string;
 }
 
 export default function AppInput({
   name,
   variant = 'bordered',
   labelPlacement,
+  className,
   ...props
 }: IProps) {
   const {
@@ -43,6 +45,7 @@ export default function AppInput({
       isInvalid={!!errors[name]}
       variant={variant}
       labelPlacement={labelPlacement}
+      className={className}
       {...props}
     />
   );
