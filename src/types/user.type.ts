@@ -1,4 +1,5 @@
 import { UserRoles, UserStatus, UserType } from '@/constants';
+import { IPost } from './post.type';
 
 export type IUserRole = (typeof UserRoles)[number];
 export type IUserStatus = (typeof UserStatus)[number];
@@ -22,7 +23,7 @@ export interface IUser {
   subscription: ISubscription;
   followers: string[];
   following: string[];
-  posts: string[];
+  posts: IPost[];
   createdAt: Date;
   isDeleted: boolean;
 }

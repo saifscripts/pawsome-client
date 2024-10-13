@@ -14,5 +14,6 @@ export interface IPost {
   comments: [string];
   isPremium: boolean;
   isPublished: boolean;
+  createdAt: Date;
   isDeleted: boolean;
 }
