@@ -74,19 +74,6 @@ export default function CreatePost() {
         defaultValues={defaultValues}
         formSchema={createPostSchema}
       >
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
-          <AppSelect
-            name="isPremium"
-            label="Content Type"
-            options={ContentType}
-          />
-          <AppSelect
-            name="category"
-            label="Category"
-            placeholder="Select a Category"
-            options={PostCategoryOptions}
-          />
-        </div>
         <AppInput name="title" label="Title" />
         <AppTextarea
           name="summary"
@@ -120,6 +107,19 @@ export default function CreatePost() {
             />
           </div>
         )}
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+          <AppSelect
+            name="isPremium"
+            label="Content Type"
+            options={ContentType}
+          />
+          <AppSelect
+            name="category"
+            label="Category"
+            placeholder="Select a Category"
+            options={PostCategoryOptions}
+          />
+        </div>
         <AppSubmit isLoading={isPending}>Create Post</AppSubmit>
       </AppForm>
     </>
