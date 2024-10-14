@@ -10,11 +10,12 @@ import { ContentType, PostCategoryOptions } from '@/constants';
 import { useCreatePost } from '@/hooks/post.hook';
 import { createPostSchema } from '@/schemas/post.schema';
 import { useEffect, useState } from 'react';
-import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import Topbar from './_components/Topbar';
 
 const defaultValues = {
   title: '',
+  summary: '',
   content: '',
   isPremium: 'free',
   category: '',
@@ -31,13 +32,8 @@ export default function CreatePost() {
   const [imageDataUrl, setImageDataUrl] = useState<string>('');
   const [form, setForm] = useState<UseFormReturn | null>(null);
 
-  const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
-    const formData = new FormData();
-    formData.append('body', JSON.stringify(data));
+  const handleSubmit: SubmitHandler<FormData> = async (formData) => {
     if (imageFile) formData.append('featuredImage', imageFile);
-
-    console.log(data);
     createPost(formData);
   };
 
@@ -78,7 +74,7 @@ export default function CreatePost() {
         <AppTextarea
           name="summary"
           label="Post Summary"
-          placeholder="Write a brief summary of your post, between 30 and 300 characters."
+          placeholder="Write a brief summary of your post, between 50 and 300 characters."
         />
         <AppContentBox name="content" />
 

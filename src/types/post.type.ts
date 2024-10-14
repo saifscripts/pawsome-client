@@ -6,12 +6,13 @@ export type IPostCategory = (typeof PostCategories)[number];
 export interface IPost {
   _id: string;
   title: string;
+  summary: string;
   content: string;
   author: string;
   category: IPostCategory;
   featuredImage: string;
-  upvotes: [string];
-  downvotes: [string];
+  upvotes: string[];
+  downvotes: string[];
   comments: IComment[];
   isPremium: boolean;
   isPublished: boolean;

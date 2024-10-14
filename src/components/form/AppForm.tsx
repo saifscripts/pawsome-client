@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import {
-  FieldValues,
   FormProvider,
   SubmitHandler,
   useForm,
@@ -13,7 +12,7 @@ import { Schema } from 'zod';
 
 interface IProps {
   children: React.ReactNode;
-  onSubmit: SubmitHandler<FieldValues>;
+  onSubmit: SubmitHandler<any>;
   defaultValues?: Record<string, unknown>;
   formSchema?: Schema;
   className?: string;
@@ -40,8 +39,8 @@ export default function AppForm({
   });
 
   useEffect(() => {
-    setForm && setForm(form);
-  }, [form, setForm]);
+    if (setForm) setForm(form);
+  }, []);
 
   return (
     <FormProvider {...form}>
