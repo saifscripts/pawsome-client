@@ -9,8 +9,8 @@ const AuthRoutes = [
   '/reset-password',
 ];
 export const RoleBasedRoutes = {
-  admin: [/^\/dashboard/, '/create-post'],
-  user: ['/create-post'],
+  admin: [/^\/dashboard/, '/create-post', /^\/edit-post/],
+  user: ['/create-post', /^\/edit-post/],
 };
 
 export async function middleware(request: NextRequest) {
@@ -43,6 +43,7 @@ export const config = {
   matcher: [
     '/dashboard/:path*',
     '/create-post',
+    '/edit-post/:path*',
     '/login',
     '/register',
     '/forget-password',

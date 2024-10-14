@@ -16,9 +16,11 @@ import {
   useDisclosure,
 } from '@nextui-org/modal';
 import { EllipsisIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function PostDropdown({ post }: { post: IPost }) {
+  const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const {
     mutate: deletePost,
@@ -42,7 +44,12 @@ export default function PostDropdown({ post }: { post: IPost }) {
           </Button>
         </DropdownTrigger>
         <DropdownMenu aria-label="Static Actions">
-          <DropdownItem key="edit">Edit</DropdownItem>
+          <DropdownItem
+            onPress={() => router.push(`/edit-post/${post._id}`)}
+            key="edit"
+          >
+            Edit
+          </DropdownItem>
           <DropdownItem
             onPress={onOpen}
             key="delete"

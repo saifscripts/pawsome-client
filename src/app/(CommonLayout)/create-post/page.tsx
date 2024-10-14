@@ -5,6 +5,7 @@ import AppForm from '@/components/form/AppForm';
 import AppInput from '@/components/form/AppInput';
 import AppSelect from '@/components/form/AppSelect';
 import AppSubmit from '@/components/form/AppSubmit';
+import AppTextarea from '@/components/form/AppTextarea';
 import { ContentType, PostCategoryOptions } from '@/constants';
 import { useCreatePost } from '@/hooks/post.hook';
 import { createPostSchema } from '@/schemas/post.schema';
@@ -26,36 +27,29 @@ export default function CreatePost() {
     isPending,
     isSuccess,
   } = useCreatePost();
-  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-  const [form, setForm] = useState<UseFormReturn<
-    Record<string, unknown>,
-    any,
-    undefined
-  > | null>(null);
+  const [imageFile, setImageFile] = useState<File | undefined>(undefined);
+  const [imageDataUrl, setImageDataUrl] = useState<string>('');
+  const [form, setForm] = useState<UseFormReturn | null>(null);
 
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
     const formData = new FormData();
     formData.append('body', JSON.stringify(data));
+    if (imageFile) formData.append('featuredImage', imageFile);
 
-    for (let image of imageFiles) {
-      formData.append('images', image);
-    }
-
-    // console.log(data);
+    console.log(data);
     createPost(formData);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
-
-    setImageFiles((prev) => [...prev, file]);
+    setImageFile(file);
 
     if (file) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        setImagePreviews((prev) => [...prev, reader.result as string]);
+        setImageDataUrl(reader.result as string);
       };
 
       reader.readAsDataURL(file);
@@ -65,8 +59,8 @@ export default function CreatePost() {
   useEffect(() => {
     if (!isPending && isSuccess && newPost?.success) {
       form!.reset(defaultValues);
-      setImageFiles([]);
-      setImagePreviews([]);
+      setImageFile(undefined);
+      setImageDataUrl('');
     }
   }, [isPending, isSuccess, newPost]);
 
@@ -94,38 +88,38 @@ export default function CreatePost() {
           />
         </div>
         <AppInput name="title" label="Title" />
+        <AppTextarea
+          name="summary"
+          label="Post Summary"
+          placeholder="Write a brief summary of your post, between 30 and 300 characters."
+        />
         <AppContentBox name="content" />
-        {imagePreviews.length > 0 && (
-          <div className="flex gap-5 my-5 flex-wrap">
-            {imagePreviews.map((imageDataUrl) => (
-              <div
-                key={imageDataUrl}
-                className="relative size-48 rounded-xl border-2 border-dashed border-default-300 p-2"
-              >
-                <img
-                  alt="item"
-                  className="h-full w-full object-cover object-center rounded-md"
-                  src={imageDataUrl}
-                />
-              </div>
-            ))}
+
+        {imageDataUrl ? (
+          <div className="relative size-48 rounded-xl border-2 border-dashed border-default-300 p-2">
+            <img
+              alt="item"
+              className="h-full w-full object-cover object-center rounded-md"
+              src={imageDataUrl}
+            />
+          </div>
+        ) : (
+          <div className="min-w-fit flex-1">
+            <label
+              className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-default-200 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
+              htmlFor="image"
+            >
+              Upload image
+            </label>
+            <input
+              className="hidden"
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageChange(e)}
+            />
           </div>
         )}
-        <div className="min-w-fit flex-1">
-          <label
-            className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-default-200 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
-            htmlFor="image"
-          >
-            Upload image
-          </label>
-          <input
-            multiple
-            className="hidden"
-            id="image"
-            type="file"
-            onChange={(e) => handleImageChange(e)}
-          />
-        </div>
         <AppSubmit isLoading={isPending}>Create Post</AppSubmit>
       </AppForm>
     </>
