@@ -9,7 +9,7 @@ export interface IPost {
   content: string;
   author: string;
   category: IPostCategory;
-  imageUrls?: string[];
+  featuredImage: string;
   upvotes: [string];
   downvotes: [string];
   comments: IComment[];

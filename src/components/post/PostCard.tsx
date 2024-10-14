@@ -75,7 +75,7 @@ export default function PostCard({
           <Image
             height={160}
             width={160}
-            src={post?.imageUrls![0]}
+            src={post?.featuredImage}
             alt={post.title}
             className="rounded-lg w-full object-cover"
           />

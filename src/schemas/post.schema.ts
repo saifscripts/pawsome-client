@@ -20,7 +20,6 @@ export const createPostSchema = z.object({
   category: z.enum(PostCategories, {
     message: 'Category is required',
   }),
-  // imageUrls: z.array(z.string().url('Invalid image url')).optional(),
   isPremium: z
     .string()
     .transform((value) => value === 'premium')
