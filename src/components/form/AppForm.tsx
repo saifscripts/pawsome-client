@@ -16,13 +16,7 @@ interface IProps {
   defaultValues?: Record<string, unknown>;
   formSchema?: Schema;
   className?: string;
-  setForm?: Dispatch<
-    SetStateAction<UseFormReturn<
-      Record<string, unknown>,
-      any,
-      undefined
-    > | null>
-  >;
+  setForm?: Dispatch<SetStateAction<UseFormReturn | null>>;
 }
 
 export default function AppForm({

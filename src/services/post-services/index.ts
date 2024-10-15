@@ -1,5 +1,6 @@
 'use server';
 
+import env from '@/config/env';
 import axios from '@/lib/axios';
 import { IPostResponse } from '@/types';
 import { AxiosError } from 'axios';
@@ -18,8 +19,13 @@ export const createPost = async (formData: FormData) => {
 };
 
 export const getPost = async (id: string) => {
-  const { data } = await axios.get<IPostResponse>(`/posts/${id}`);
-  return data;
+  const res = await fetch(`${env.base_url}/posts/${id}`, { cache: 'no-store' });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch post!');
+  }
+
+  return res.json();
 };
 
 export const editPost = async (options: { id: string; formData: FormData }) => {

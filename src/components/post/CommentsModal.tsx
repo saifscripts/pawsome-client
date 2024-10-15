@@ -1,3 +1,5 @@
+'use client';
+
 import { useCreateComment } from '@/hooks/comment.hook';
 import { createCommentSchema } from '@/schemas/comment.schema';
 import { IPost, IUser } from '@/types';
@@ -80,7 +82,7 @@ export default function CommentsModal({
                     {author?.name}
                   </h4>
                   <h5 className="text-small tracking-tight text-default-400">
-                    @{author.email.split('@')[0]}
+                    @{author?.email?.split?.('@')[0]}
                   </h5>
                 </div>
               </div>

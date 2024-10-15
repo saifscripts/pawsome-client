@@ -1,5 +1,6 @@
 import { PostCategories } from '@/constants';
 import { IComment } from './comment.type';
+import { IUser } from './user.type';
 
 export type IPostCategory = (typeof PostCategories)[number];
 
@@ -8,7 +9,7 @@ export interface IPost {
   title: string;
   summary: string;
   content: string;
-  author: string;
+  author: IUser;
   category: IPostCategory;
   featuredImage: string;
   upvotes: string[];
