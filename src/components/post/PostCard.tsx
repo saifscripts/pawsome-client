@@ -7,6 +7,7 @@ import { IPost, IUser } from '@/types';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import { Chip } from '@nextui-org/chip';
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -33,41 +34,49 @@ export default function PostCard({
     <div onClick={() => route.push(`/posts/${post._id}`)}>
       <Card className="cursor-pointer">
         <CardHeader className="justify-between">
-          <div className="flex gap-5">
-            <Avatar
-              isBordered
-              radius="full"
-              size="md"
-              src={author?.avatarURL}
-            />
-            <div className="flex flex-col gap-1 items-start justify-center">
-              <h4 className="text-small font-semibold leading-none text-default-600">
-                {author?.name}
-              </h4>
-              <h5 className="text-small tracking-tight text-default-400">
-                @{author.email.split('@')[0]}
-              </h5>
+          <div className="flex gap-10 items-center">
+            <div className="flex gap-5">
+              <Avatar
+                isBordered
+                radius="full"
+                size="md"
+                src={author?.avatarURL}
+              />
+              <div className="flex flex-col gap-1 items-start justify-center">
+                <h4 className="text-small font-semibold leading-none text-default-600">
+                  {author?.name}
+                </h4>
+                <h5 className="text-small tracking-tight text-default-400">
+                  @{author.email.split('@')[0]}
+                </h5>
+              </div>
             </div>
+            {!isMyPost && (
+              <Button
+                className={
+                  isFollowed
+                    ? 'bg-transparent text-foreground border-default-200'
+                    : ''
+                }
+                color="primary"
+                radius="full"
+                size="sm"
+                variant={isFollowed ? 'bordered' : 'solid'}
+                onPress={() => setIsFollowed(!isFollowed)}
+              >
+                {isFollowed ? 'Unfollow' : 'Follow'}
+              </Button>
+            )}
           </div>
 
-          {isMyPost ? (
-            <PostDropdown post={post} />
-          ) : (
-            <Button
-              className={
-                isFollowed
-                  ? 'bg-transparent text-foreground border-default-200'
-                  : ''
-              }
-              color="primary"
-              radius="full"
-              size="sm"
-              variant={isFollowed ? 'bordered' : 'solid'}
-              onPress={() => setIsFollowed(!isFollowed)}
-            >
-              {isFollowed ? 'Unfollow' : 'Follow'}
-            </Button>
-          )}
+          <div className="flex gap-5 items-center">
+            {post.isPremium ? (
+              <Chip color="success">Premium</Chip>
+            ) : (
+              <Chip color="secondary">Free</Chip>
+            )}
+            {isMyPost && <PostDropdown post={post} />}
+          </div>
         </CardHeader>
         <CardBody className="px-3 py-0 text-small text-default-400 grid grid-cols-[2fr_1fr] gap-4">
           <div>

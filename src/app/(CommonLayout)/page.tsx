@@ -49,7 +49,7 @@ export default function HomePage() {
 
   return (
     <section className="p-4 space-y-4">
-      {posts?.length &&
+      {posts?.length > 0 &&
         posts.map((post) => (
           <PostCard key={post._id} post={post} author={post.author} />
         ))}
