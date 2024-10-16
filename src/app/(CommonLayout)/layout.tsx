@@ -1,20 +1,24 @@
 import '@/styles/globals.css';
 
-import LeftSidebar from '@/components/ui/left-sidebar';
 import { Navbar } from '@/components/ui/navbar';
-import RightSidebar from '@/components/ui/right-sidebar';
 
 export default function RootLayout({
   children,
+  leftSidebar,
+  rightSidebar,
 }: {
   children: React.ReactNode;
+  leftSidebar: React.ReactNode;
+  rightSidebar: React.ReactNode;
 }) {
   return (
-    <div className="relative flex flex-col h-screen">
+    <div className="h-[100svh] overflow-hidden">
       <Navbar />
-      <LeftSidebar />
-      <RightSidebar />
-      <main className="ml-[300px] mr-[240px]">{children}</main>
+      <div className="h-[calc(100svh-64px)] overflow-y-auto grid grid-cols-[240px_1fr_240px]">
+        {leftSidebar}
+        <main className="h-full overflow-y-scroll">{children}</main>
+        {rightSidebar}
+      </div>
     </div>
   );
 }

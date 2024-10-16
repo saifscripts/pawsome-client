@@ -35,6 +35,7 @@ export default function NavbarDropdown() {
         <Avatar
           isBordered
           as="button"
+          size="sm"
           className="transition-transform"
           src={user?.avatarURL}
         />
