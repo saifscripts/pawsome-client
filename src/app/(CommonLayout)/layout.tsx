@@ -14,9 +14,9 @@ export default function RootLayout({
   return (
     <div className="h-[100svh] overflow-hidden">
       <Navbar />
-      <div className="h-[calc(100svh-64px)] overflow-y-auto grid grid-cols-[240px_1fr_240px]">
+      <div className="h-[calc(100svh-64px)] overflow-y-auto flex flex-nowrap">
         {leftSidebar}
-        <main className="h-full overflow-y-scroll">{children}</main>
+        <main className="h-full overflow-y-scroll flex-1">{children}</main>
         {rightSidebar}
       </div>
     </div>
