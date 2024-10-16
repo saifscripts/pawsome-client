@@ -13,8 +13,6 @@ export default function Footer({ post }: { post: IPost }) {
   const { mutate: downvotePost } = useDownvotePost(post);
   const { user } = useAuth();
 
-  console.log(post.author);
-
   return (
     <div className="flex gap-2 items-center">
       <div className="flex gap-2 items-center rounded-full bg-default-300 dark:bg-default-200">

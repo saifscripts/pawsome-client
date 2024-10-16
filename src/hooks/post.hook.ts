@@ -4,9 +4,10 @@ import {
   downvotePost,
   editPost,
   getPost,
+  getPosts,
   upvotePost,
 } from '@/services/post-services';
-import { IPost, IPostResponse } from '@/types';
+import { IPost, IPostResponse, IResponse } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
@@ -14,6 +15,19 @@ export const useGetPost = (id: string) => {
   return useQuery<any, Error, IPostResponse>({
     queryKey: ['POST'],
     queryFn: async () => await getPost(id),
+  });
+};
+
+export const useGetPosts = ({
+  limit,
+  page,
+}: {
+  limit: number;
+  page: number;
+}) => {
+  return useQuery<any, Error, IResponse<IPost[]>>({
+    queryKey: ['POST'],
+    queryFn: async () => await getPosts({ limit, page }),
   });
 };
 

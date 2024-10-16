@@ -28,6 +28,24 @@ export const getPost = async (id: string) => {
   return res.json();
 };
 
+export const getPosts = async ({
+  limit,
+  page,
+}: {
+  limit: number;
+  page: number;
+}) => {
+  const res = await fetch(`${env.base_url}/posts?limit=${limit}&page=${page}`, {
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch posts!');
+  }
+
+  return res.json();
+};
+
 export const editPost = async (options: { id: string; formData: FormData }) => {
   const { data } = await axios.put<IPostResponse>(
     `/posts/${options.id}`,
