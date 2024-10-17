@@ -22,7 +22,7 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: 'bg-default-100',
+        inputWrapper: 'bg-default-100 lg:max-w-48',
         input: 'text-sm',
       }}
       endContent={
@@ -48,19 +48,12 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">ACME</p>
           </NextLink>
         </NavbarBrand>
-        <NavbarItem>{searchInput}</NavbarItem>
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem>
-          <ThemeSwitch />
-        </NavbarItem>
-        <NavbarItem>
-          <NavbarDropdown />
-        </NavbarItem>
+      <NavbarContent className="hidden sm:flex" justify="end">
+        <ThemeSwitch />
+        <NavbarItem>{searchInput}</NavbarItem>
+        <NavbarDropdown />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
