@@ -27,7 +27,15 @@ export const useGetPosts = ({
 }) => {
   return useQuery<any, Error, IResponse<IPost[]>>({
     queryKey: ['POST'],
-    queryFn: async () => await getPosts({ limit, page }),
+    queryFn: async () =>
+      await getPosts({ limit: String(limit), page: String(page) }),
+  });
+};
+
+export const useSearchPosts = ({ searchTerm }: { searchTerm: string }) => {
+  return useQuery<any, Error, IResponse<IPost[]>>({
+    queryKey: ['POST'],
+    queryFn: async () => await getPosts({ searchTerm }),
   });
 };
 

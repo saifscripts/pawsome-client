@@ -28,14 +28,10 @@ export const getPost = async (id: string) => {
   return res.json();
 };
 
-export const getPosts = async ({
-  limit,
-  page,
-}: {
-  limit: number;
-  page: number;
-}) => {
-  const res = await fetch(`${env.base_url}/posts?limit=${limit}&page=${page}`, {
+export const getPosts = async (params: Record<string, string>) => {
+  const searchParams = new URLSearchParams(params);
+
+  const res = await fetch(`${env.base_url}/posts?${searchParams.toString()}`, {
     cache: 'no-store',
   });
 

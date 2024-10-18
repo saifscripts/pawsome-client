@@ -15,7 +15,10 @@ export default function HomePage() {
   useEffect(() => {
     if (page > 0) {
       (async () => {
-        const { data } = await getPosts({ limit, page });
+        const { data } = await getPosts({
+          limit: String(limit),
+          page: String(limit),
+        });
         if (data?.length) {
           setPosts((prev) => [...prev, ...data]);
         }
