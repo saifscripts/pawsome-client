@@ -16,6 +16,7 @@ import { Logo, SearchIcon } from '@/components/icons';
 import { ThemeSwitch } from '@/components/ui/theme-switch';
 import { siteConfig } from '@/config/site';
 import NavbarDropdown from './navbar-dropdown';
+import SearchInput from './SearchInput';
 
 export const Navbar = () => {
   const searchInput = (
@@ -52,7 +53,9 @@ export const Navbar = () => {
 
       <NavbarContent className="hidden sm:flex" justify="end">
         <ThemeSwitch />
-        <NavbarItem>{searchInput}</NavbarItem>
+        <NavbarItem>
+          <SearchInput />
+        </NavbarItem>
         <NavbarDropdown />
       </NavbarContent>
 
