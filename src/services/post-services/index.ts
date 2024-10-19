@@ -42,6 +42,15 @@ export const getPosts = async (params: URLSearchParams) => {
   return res.json();
 };
 
+export const getTags = async (limit?: number) => {
+  const searchParams = new URLSearchParams();
+  if (limit) searchParams.set('limit', String(limit));
+
+  const { data } = await axios.get(`/posts/tags?${searchParams.toString()}`);
+
+  return data;
+};
+
 export const editPost = async (options: { id: string; formData: FormData }) => {
   const { data } = await axios.put<IPostResponse>(
     `/posts/${options.id}`,

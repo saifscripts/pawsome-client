@@ -32,7 +32,7 @@ export default function HomePage() {
         }
       })();
     }
-  }, [page, searchParams]);
+  }, [page]);
 
   useEffect(() => {
     setPage(0);

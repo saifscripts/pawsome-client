@@ -11,6 +11,7 @@ export interface IPost {
   content: string;
   author: IUser;
   category: IPostCategory;
+  tags: string[];
   featuredImage: string;
   upvotes: string[];
   downvotes: string[];

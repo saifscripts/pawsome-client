@@ -4,7 +4,7 @@ import {
   downvotePost,
   editPost,
   getPost,
-  getPosts,
+  getTags,
   upvotePost,
 } from '@/services/post-services';
 import { IPost, IPostResponse, IResponse } from '@/types';
@@ -18,24 +18,10 @@ export const useGetPost = (id: string) => {
   });
 };
 
-export const useGetPosts = ({
-  limit,
-  page,
-}: {
-  limit: number;
-  page: number;
-}) => {
-  return useQuery<any, Error, IResponse<IPost[]>>({
-    queryKey: ['POST'],
-    queryFn: async () =>
-      await getPosts({ limit: String(limit), page: String(page) }),
-  });
-};
-
-export const useSearchPosts = ({ searchTerm }: { searchTerm: string }) => {
-  return useQuery<any, Error, IResponse<IPost[]>>({
-    queryKey: ['POST'],
-    queryFn: async () => await getPosts({ searchTerm }),
+export const useGetTags = (limit?: number) => {
+  return useQuery<any, Error, IResponse<{ _id: string; count: number }[]>>({
+    queryKey: ['TAGS'],
+    queryFn: async () => await getTags(limit),
   });
 };
 

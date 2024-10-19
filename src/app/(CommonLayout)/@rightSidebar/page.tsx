@@ -1,7 +1,9 @@
 'use client';
 
+import { useGetTags } from '@/hooks/post.hook';
 import { Accordion, AccordionItem } from '@nextui-org/accordion';
 import { Checkbox } from '@nextui-org/checkbox';
+import { Chip } from '@nextui-org/chip';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
@@ -9,6 +11,8 @@ export default function RightSidebar() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const { data: tags } = useGetTags();
 
   const appendParam = useCallback(
     (name: string, value: string) => {
@@ -23,6 +27,7 @@ export default function RightSidebar() {
   const deleteParam = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
+      // @ts-ignore
       params.delete(name, value);
 
       return params.toString();
@@ -54,12 +59,24 @@ export default function RightSidebar() {
     router.replace(pathname + '?' + params);
   };
 
+  const handleKeywordChange = (keyword: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (params.get('tags') === keyword) {
+      params.delete('tags');
+    } else {
+      params.set('tags', keyword);
+    }
+
+    router.replace(pathname + '?' + params);
+  };
+
   return (
-    <aside className="w-[300px] h-full border-l border-divider p-4">
+    <aside className="w-[300px] h-full overflow-y-auto border-l border-divider p-4">
       <Accordion
         selectionMode="multiple"
         variant="bordered"
-        defaultExpandedKeys={['1', '2']}
+        defaultExpandedKeys={['1', '2', '3']}
       >
         <AccordionItem key="1" aria-label="Categories" title="Categories">
           <div className="flex flex-col gap-2">
@@ -97,6 +114,24 @@ export default function RightSidebar() {
             >
               Premium
             </Checkbox>
+          </div>
+        </AccordionItem>
+        <AccordionItem key="3" aria-label="Keywords" title="Keywords">
+          <div className="flex gap-2 flex-wrap pb-2">
+            {tags?.data &&
+              tags?.data?.length > 0 &&
+              tags?.data?.map((tag) => (
+                <Chip
+                  onClick={() => handleKeywordChange(tag._id)}
+                  key={tag._id}
+                  color={
+                    searchParams.get('tags') === tag._id ? 'primary' : 'default'
+                  }
+                  className="cursor-pointer capitalize"
+                >
+                  {tag._id}
+                </Chip>
+              ))}
           </div>
         </AccordionItem>
       </Accordion>

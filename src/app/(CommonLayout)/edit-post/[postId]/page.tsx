@@ -8,7 +8,7 @@ import AppSubmit from '@/components/form/AppSubmit';
 import AppTextarea from '@/components/form/AppTextarea';
 import { ContentType, PostCategoryOptions } from '@/constants';
 import { useEditPost, useGetPost } from '@/hooks/post.hook';
-import { createPostSchema } from '@/schemas/post.schema';
+import { updatePostSchema } from '@/schemas/post.schema';
 import { Button } from '@nextui-org/button';
 import { XIcon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
@@ -99,6 +99,9 @@ export default function EditPostPage() {
     content: post.content,
     isPremium: post.isPremium ? 'premium' : 'free',
     category: post.category,
+    tags: post.tags
+      .map((tag) => tag[0].toUpperCase() + tag.substring(1))
+      .join(', '),
   };
 
   return (
@@ -109,7 +112,7 @@ export default function EditPostPage() {
         onSubmit={handleSubmit}
         setForm={setForm}
         defaultValues={defaultValues}
-        formSchema={createPostSchema}
+        formSchema={updatePostSchema}
       >
         <AppInput name="title" label="Title" />
         <AppTextarea
@@ -171,6 +174,7 @@ export default function EditPostPage() {
             options={PostCategoryOptions}
           />
         </div>
+        <AppInput name="tags" label="Tags" placeholder="Tips, Care, Grooming" />
         <AppSubmit isLoading={isPending}>Update Post</AppSubmit>
       </AppForm>
     </>

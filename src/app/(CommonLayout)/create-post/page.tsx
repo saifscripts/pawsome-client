@@ -19,6 +19,7 @@ const defaultValues = {
   content: '',
   isPremium: 'free',
   category: '',
+  tags: '',
 };
 
 export default function CreatePost() {
@@ -116,6 +117,7 @@ export default function CreatePost() {
             options={PostCategoryOptions}
           />
         </div>
+        <AppInput name="tags" label="Tags" placeholder="Tips, Care, Grooming" />
         <AppSubmit isLoading={isPending}>Create Post</AppSubmit>
       </AppForm>
     </>
