@@ -17,7 +17,7 @@ export default function HomePage() {
       (async () => {
         const { data } = await getPosts({
           limit: String(limit),
-          page: String(limit),
+          page: String(page),
         });
         if (data?.length) {
           setPosts((prev) => [...prev, ...data]);

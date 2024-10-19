@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/cn';
 import { getPosts } from '@/services/post-services';
 import { IPost } from '@/types';
 import { debounce } from '@/utils/debounce';
@@ -12,48 +13,61 @@ import {
   ModalContent,
   useDisclosure,
 } from '@nextui-org/modal';
+import { Spinner } from '@nextui-org/spinner';
 import { ChevronRight, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function SearchInput() {
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const searchInput = useRef<HTMLInputElement | null>(null);
+  const route = useRouter();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [posts, setPosts] = useState<IPost[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const debouncedGetPosts = useCallback(
     debounce(async (searchTerm: string) => {
-      console.log(searchTerm);
-      const { data } = await getPosts({
-        searchTerm,
-        limit: '5',
-        sort: '-createdAt',
-        fields: 'title featuredImage',
-      });
-      if (data?.length) {
-        setPosts(data);
-      } else {
+      if (searchTerm.trim() === '') {
         setPosts([]);
+      } else {
+        setIsLoading(true);
+        const { data } = await getPosts({
+          searchTerm,
+          limit: '5',
+          sort: '-createdAt',
+          fields: 'title featuredImage',
+        });
+        if (data?.length) {
+          setPosts(data);
+        } else {
+          setPosts([]);
+        }
+        setIsLoading(false);
       }
     }, 500),
     []
   );
 
   useEffect(() => {
-    if (searchTerm) {
-      debouncedGetPosts(searchTerm);
-    } else {
-      setPosts([]);
-    }
-  }, [searchTerm]);
-
-  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === 'k') {
         e.preventDefault();
         onOpen();
+      } else if (e.key === 'ArrowDown' && isOpen) {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev < posts.length - 1 ? prev + 1 : prev));
+      } else if (e.key === 'ArrowUp' && isOpen) {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+      } else if (e.key === 'Enter' && isOpen) {
+        e.preventDefault();
+        if (selectedIndex >= 0 && posts[selectedIndex]) {
+          route.push(`/posts/${posts[selectedIndex]._id}`);
+          onClose();
+        }
       }
     };
 
@@ -62,14 +76,21 @@ export default function SearchInput() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [posts, selectedIndex, isOpen]);
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [posts, isOpen]);
 
   useEffect(() => {
     if (isOpen) {
       searchInput?.current?.focus();
-      setSearchTerm('');
     }
   }, [isOpen]);
+
+  const handleInputChange = (searchTerm: string) => {
+    debouncedGetPosts(searchTerm);
+  };
 
   return (
     <>
@@ -113,18 +134,27 @@ export default function SearchInput() {
                 <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
               }
               type="search"
-              value={searchTerm}
-              onValueChange={setSearchTerm}
+              onValueChange={handleInputChange}
+              //   onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            {posts?.length > 0 ? (
+            {isLoading ? (
+              <div className="p-6 flex justify-center items-center">
+                <Spinner />
+              </div>
+            ) : posts?.length > 0 ? (
               <div className="p-4 flex flex-col gap-2">
-                {posts.map((post) => (
+                {posts.map((post, index) => (
                   <Link
                     onClick={onClose}
                     href={`/posts/${post._id}`}
                     key={post._id}
-                    className="p-2 bg-default-100 rounded-md hover:bg-primary-200 flex gap-2 items-center"
+                    className={cn(
+                      'p-2 bg-default-100 rounded-md hover:bg-primary-200 flex gap-2 items-center',
+                      {
+                        'bg-primary-200': index === selectedIndex,
+                      }
+                    )}
                   >
                     <div className="size-10 rounded-lg">
                       <Image
