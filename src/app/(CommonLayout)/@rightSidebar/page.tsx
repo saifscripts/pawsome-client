@@ -2,8 +2,11 @@
 
 import { useGetTags } from '@/hooks/post.hook';
 import { Accordion, AccordionItem } from '@nextui-org/accordion';
+import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Chip } from '@nextui-org/chip';
+import { Divider } from '@nextui-org/divider';
+import { FilterXIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
@@ -117,7 +120,7 @@ export default function RightSidebar() {
           </div>
         </AccordionItem>
         <AccordionItem key="3" aria-label="Keywords" title="Keywords">
-          <div className="flex gap-2 flex-wrap pb-2">
+          <div className="flex gap-2 flex-wrap">
             {tags?.data &&
               tags?.data?.length > 0 &&
               tags?.data?.map((tag) => (
@@ -132,6 +135,18 @@ export default function RightSidebar() {
                   {tag._id}
                 </Chip>
               ))}
+          </div>
+          <Divider className="mt-4 mb-6" />
+          <div className="flex justify-end">
+            <Button
+              size="sm"
+              color="danger"
+              variant="flat"
+              onClick={() => router.replace(pathname)}
+            >
+              <FilterXIcon size={16} />
+              Reset
+            </Button>
           </div>
         </AccordionItem>
       </Accordion>
