@@ -14,7 +14,7 @@ import {
   useDisclosure,
 } from '@nextui-org/modal';
 import { Spinner } from '@nextui-org/spinner';
-import { ChevronRight, SearchIcon } from 'lucide-react';
+import { ChevronRight, CrownIcon, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -34,17 +34,21 @@ export default function SearchInput() {
         setPosts([]);
       } else {
         setIsLoading(true);
-        const { data } = await getPosts({
+        const params = new URLSearchParams({
           searchTerm,
           limit: '5',
           sort: '-createdAt',
-          fields: 'title featuredImage',
+          fields: 'title featuredImage isPremium',
         });
+
+        const { data } = await getPosts(params);
+
         if (data?.length) {
           setPosts(data);
         } else {
           setPosts([]);
         }
+
         setIsLoading(false);
       }
     }, 500),
@@ -147,10 +151,11 @@ export default function SearchInput() {
                 {posts.map((post, index) => (
                   <Link
                     onClick={onClose}
+                    onMouseOver={() => setSelectedIndex(index)}
                     href={`/posts/${post._id}`}
                     key={post._id}
                     className={cn(
-                      'p-2 bg-default-100 rounded-md hover:bg-primary-200 flex gap-2 items-center',
+                      'p-2 bg-default-100 rounded-md flex gap-2 items-center',
                       {
                         'bg-primary-200': index === selectedIndex,
                       }
@@ -167,7 +172,12 @@ export default function SearchInput() {
                     </div>
                     <div className="flex gap-4 justify-between items-center flex-1">
                       <p>{post.title}</p>
-                      <ChevronRight />
+                      <div className="flex gap-2">
+                        {post.isPremium && (
+                          <CrownIcon className="text-warning-500" />
+                        )}
+                        <ChevronRight />
+                      </div>
                     </div>
                   </Link>
                 ))}

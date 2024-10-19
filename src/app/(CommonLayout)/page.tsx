@@ -3,6 +3,7 @@
 import PostCard from '@/components/post/PostCard';
 import { getPosts } from '@/services/post-services';
 import { IPost } from '@/types';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 export default function HomePage() {
@@ -11,23 +12,33 @@ export default function HomePage() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const loader = useRef(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (page > 0) {
       (async () => {
-        const { data } = await getPosts({
-          limit: String(limit),
-          page: String(page),
-        });
+        const params = new URLSearchParams(searchParams.toString());
+        params.append('limit', String(limit));
+        params.append('page', String(page));
+
+        const { data } = await getPosts(params);
+
         if (data?.length) {
           setPosts((prev) => [...prev, ...data]);
         }
+
         if (data?.length < limit) {
           setHasMore(false);
         }
       })();
     }
-  }, [page]);
+  }, [page, searchParams]);
+
+  useEffect(() => {
+    setPage(0);
+    setPosts([]);
+    setHasMore(true);
+  }, [searchParams]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver);

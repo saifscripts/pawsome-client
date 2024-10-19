@@ -28,7 +28,7 @@ export const getPost = async (id: string) => {
   return res.json();
 };
 
-export const getPosts = async (params: Record<string, string>) => {
+export const getPosts = async (params: URLSearchParams) => {
   const searchParams = new URLSearchParams(params);
 
   const res = await fetch(`${env.base_url}/posts?${searchParams.toString()}`, {
