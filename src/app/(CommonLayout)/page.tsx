@@ -5,9 +5,10 @@ import { getPosts } from '@/services/post-services';
 import { IPost } from '@/types';
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
+import { Select, SelectItem } from '@nextui-org/select';
 import { XIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function HomePage() {
   const pathname = usePathname();
@@ -48,10 +49,13 @@ export default function HomePage() {
     const filters: string[] = [];
 
     searchParams.forEach((value, key) => {
+      if (key === 'sort') return;
+
       if (key === 'isPremium') {
         filters.push(value === 'true' ? 'premium' : 'free');
         return;
       }
+
       filters.push(value);
     });
 
@@ -79,13 +83,47 @@ export default function HomePage() {
     }
   };
 
+  const setParam = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const handleSorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (!value) return;
+    const params = setParam('sort', value);
+    route.replace(pathname + '?' + params);
+  };
+
   return (
     <section className="p-4 space-y-4">
-      <div className="flex justify-between items-center gap-4">
-        <div className="flex gap-2 items-center">
+      <div className="space-y-2">
+        <div className="flex justify-between items-center gap-4">
+          <div className="flex gap-2 items-center flex-wrap">
+            {filters.length > 0 && (
+              <p className="text-small text-default-400">Showing results for</p>
+            )}
+          </div>
+          <Select
+            size="sm"
+            className="max-w-48"
+            selectedKeys={[searchParams.get('sort') || '-createdAt']}
+            onChange={handleSorting}
+          >
+            <SelectItem key="-createdAt">Most Recent</SelectItem>
+            <SelectItem key="createdAt">Oldest</SelectItem>
+            <SelectItem key="-totalVotes">Most Voted</SelectItem>
+            <SelectItem key="-totalComments">Most Commented</SelectItem>
+          </Select>
+        </div>
+        <div className="flex gap-2 items-center flex-wrap">
           {filters.length > 0 && (
             <>
-              <p className="text-small text-default-400">Showing results for</p>
               {filters.map((value) => (
                 <Chip className="capitalize">{value}</Chip>
               ))}

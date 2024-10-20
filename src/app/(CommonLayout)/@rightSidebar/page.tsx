@@ -22,6 +22,8 @@ export default function RightSidebar() {
       const params = new URLSearchParams(searchParams.toString());
       params.append(name, value);
 
+      if (!params.get('sort')) params.set('sort', '-totalVotes');
+
       return params.toString();
     },
     [searchParams]
@@ -123,20 +125,36 @@ export default function RightSidebar() {
           <div className="flex gap-2 flex-wrap">
             {tags?.data &&
               tags?.data?.length > 0 &&
-              tags?.data?.map((tag) => (
-                <Chip
-                  onClick={() => handleKeywordChange(tag._id)}
-                  key={tag._id}
-                  color={
-                    searchParams.get('tags') === tag._id ? 'primary' : 'default'
+              tags?.data
+                ?.sort((a, b) => {
+                  if (b.count > a.count) {
+                    return 1;
+                  } else if (b.count < a.count) {
+                    return -1;
+                  } else if (b._id < a._id) {
+                    return 1;
+                  } else if (b._id > a._id) {
+                    return -1;
+                  } else {
+                    return 0;
                   }
-                  className="cursor-pointer capitalize"
-                >
-                  {tag._id}
-                </Chip>
-              ))}
+                })
+                ?.map((tag) => (
+                  <Chip
+                    onClick={() => handleKeywordChange(tag._id)}
+                    key={tag._id}
+                    color={
+                      searchParams.get('tags') === tag._id
+                        ? 'primary'
+                        : 'default'
+                    }
+                    className="cursor-pointer capitalize"
+                  >
+                    {tag._id}
+                  </Chip>
+                ))}
           </div>
-          <Divider className="mt-4 mb-6" />
+          <Divider className="my-4" />
           <div className="flex justify-end">
             <Button
               size="sm"
