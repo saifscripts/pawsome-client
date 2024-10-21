@@ -1,5 +1,5 @@
 import { RoleBasedRoutes } from '@/middleware';
-import { getCurrentUser, logoutUser } from '@/services/auth-services';
+import { getCurrentUser, logoutUser } from '@/services/auth.service';
 import { IUser, IUserRole } from '@/types';
 import { usePathname, useRouter } from 'next/navigation';
 import {

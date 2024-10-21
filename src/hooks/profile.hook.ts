@@ -3,7 +3,7 @@ import {
   getUser,
   updateProfile,
   uploadAvatar,
-} from '@/services/profile-services';
+} from '@/services/profile.service';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';

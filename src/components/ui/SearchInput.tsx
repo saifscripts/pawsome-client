@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/cn';
-import { getPosts } from '@/services/post-services';
+import { getPosts } from '@/services/post.service';
 import { IPost } from '@/types';
 import { debounce } from '@/utils/debounce';
 import { Button } from '@nextui-org/button';

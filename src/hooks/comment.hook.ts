@@ -3,7 +3,7 @@ import {
   deleteComment,
   editComment,
   getComments,
-} from '@/services/comment-services';
+} from '@/services/comment.service';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';

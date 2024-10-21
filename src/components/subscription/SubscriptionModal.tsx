@@ -1,13 +1,22 @@
 import { useSubscription } from '@/contexts/subscription.context';
+import { useInitiatePayment } from '@/hooks/subscription.hook';
 import { BDT } from '@/utils/format';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/modal';
+import { Modal, ModalBody, ModalContent } from '@nextui-org/modal';
 import { CheckIcon, CrownIcon, SquareCheckBigIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function SubscriptionModal() {
   const { isOpen, onClose, onOpenChange } = useSubscription();
+  const { mutate: initiatePayment, isPending } = useInitiatePayment();
+  const [subscriptionType, setSubscriptionType] = useState('');
+
+  const handleSubscription = (subscriptionType: 'monthly' | 'yearly') => {
+    setSubscriptionType(subscriptionType);
+    initiatePayment({ subscriptionType });
+  };
 
   return (
     <Modal
@@ -17,11 +26,13 @@ export default function SubscriptionModal() {
       onOpenChange={onOpenChange}
     >
       <ModalContent className="bg-white dark:bg-black">
-        <ModalHeader className="flex flex-col gap-2 text-center">
-          <h1 className="text-4xl font-bold ">Upgrade to Premium</h1>
-          <p className="text-lg">Find the right plan for you and your pets.</p>
-        </ModalHeader>
         <ModalBody>
+          <div className="flex flex-col gap-2 text-center my-8">
+            <h1 className="text-4xl font-bold ">Upgrade to Premium</h1>
+            <p className="text-lg">
+              Find the right plan for you and your pets.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl mx-auto">
             {/* Free Plan */}
             <Card className="p-2  ">
@@ -78,7 +89,13 @@ export default function SubscriptionModal() {
                 </ul>
               </CardBody>
               <CardFooter>
-                <Button color="primary" variant="shadow">
+                <Button
+                  color="primary"
+                  variant="shadow"
+                  disabled={subscriptionType !== 'monthly' && isPending}
+                  isLoading={subscriptionType === 'monthly' && isPending}
+                  onClick={() => handleSubscription('monthly')}
+                >
                   <CrownIcon size={20} />
                   Upgrade to Monthly
                 </Button>
@@ -112,7 +129,13 @@ export default function SubscriptionModal() {
                 </ul>
               </CardBody>
               <CardFooter>
-                <Button color="success" variant="shadow">
+                <Button
+                  color="success"
+                  variant="shadow"
+                  disabled={subscriptionType !== 'yearly' && isPending}
+                  isLoading={subscriptionType === 'yearly' && isPending}
+                  onClick={() => handleSubscription('yearly')}
+                >
                   <CrownIcon size={20} />
                   Upgrade to Yearly
                 </Button>
@@ -121,7 +144,7 @@ export default function SubscriptionModal() {
           </div>
 
           {/* Footer */}
-          <div className="mt-8 text-center">
+          <div className="my-8 text-center">
             <p>
               Need help choosing the right plan?{' '}
               <Link

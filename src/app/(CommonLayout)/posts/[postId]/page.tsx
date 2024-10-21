@@ -1,4 +1,4 @@
-import { getPost } from '@/services/post-services';
+import { getPost } from '@/services/post.service';
 import Image from 'next/image';
 import Footer from './_components/Footer';
 import Topbar from './_components/Topbar';

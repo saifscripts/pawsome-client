@@ -1,12 +1,49 @@
 'use client';
 
 import { useSubscription } from '@/contexts/subscription.context';
+import { useMe } from '@/hooks/profile.hook';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { CrownIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import {
+  CalendarArrowDownIcon,
+  CalendarArrowUpIcon,
+  CrownIcon,
+  SquareArrowOutUpRightIcon,
+} from 'lucide-react';
 
 export default function SubscriptionCard() {
   const { onOpen } = useSubscription();
+  const { data } = useMe();
+
+  const user = data?.data;
+
+  if (user?.userType === 'premium') {
+    return (
+      <Card className="bg-transparent border-divider border p-3">
+        <CardHeader className="p-1 text-[20px] font-semibold">
+          You’re Subscribed!
+        </CardHeader>
+        <CardBody className="p-1">
+          <div className="flex gap-2 items-center text-[14px]">
+            <CalendarArrowDownIcon size={16} />
+            Starts: {format(user.subscription.startDate, 'PP')}
+          </div>
+          <div className="flex gap-2 items-center text-[14px]">
+            <CalendarArrowUpIcon size={16} />
+            Ends: {format(user.subscription.endDate, 'PP')}
+          </div>
+        </CardBody>
+        <CardFooter className="p-1">
+          <Button onPress={onOpen} size="sm" color="primary" variant="bordered">
+            <SquareArrowOutUpRightIcon size={16} />
+            Payment History
+          </Button>
+        </CardFooter>
+      </Card>
+    );
+  }
+
   return (
     <Card className="bg-transparent border-divider border p-3">
       <CardHeader className="p-1 text-[20px] font-semibold">

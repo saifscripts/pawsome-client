@@ -4,7 +4,7 @@ import {
   loginUser,
   registerUser,
   resetPassword,
-} from '@/services/auth-services';
+} from '@/services/auth.service';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';

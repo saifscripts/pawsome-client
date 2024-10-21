@@ -1,7 +1,7 @@
 'use client';
 
 import PostCard from '@/components/post/PostCard';
-import { getPosts } from '@/services/post-services';
+import { getPosts } from '@/services/post.service';
 import { IPost } from '@/types';
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';

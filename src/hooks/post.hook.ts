@@ -6,7 +6,7 @@ import {
   getPost,
   getTags,
   upvotePost,
-} from '@/services/post-services';
+} from '@/services/post.service';
 import { IPost, IPostResponse, IResponse } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
