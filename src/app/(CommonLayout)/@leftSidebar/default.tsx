@@ -1,12 +1,9 @@
-import { Button } from '@nextui-org/button';
-import Link from 'next/link';
+import SubscriptionCard from '@/components/subscription/SubscriptionCard';
 
 export default function DefaultLeftSidebar() {
   return (
-    <aside className="w-[300px] h-full overflow-y-auto border-r border-divider">
-      <Link href="/create-post">
-        <Button variant="bordered">Create Post</Button>
-      </Link>
+    <aside className="w-[300px] h-full overflow-y-auto border-r border-divider p-4">
+      <SubscriptionCard />
     </aside>
   );
 }
