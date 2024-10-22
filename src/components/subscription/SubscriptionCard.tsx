@@ -1,6 +1,6 @@
 'use client';
 
-import { useSubscription } from '@/contexts/subscription.context';
+import { useSubscriptionModal } from '@/contexts/subscription-modal.context';
 import { useMe } from '@/hooks/profile.hook';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 export default function SubscriptionCard() {
-  const { onOpen } = useSubscription();
+  const { onOpen } = useSubscriptionModal();
   const { data } = useMe();
 
   const user = data?.data;

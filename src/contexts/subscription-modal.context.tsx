@@ -12,7 +12,7 @@ interface ISubscriptionProviderValues {
   getDisclosureProps: (props?: any) => any;
 }
 
-const SubscriptionContext = createContext<
+const SubscriptionModalContext = createContext<
   ISubscriptionProviderValues | undefined
 >(undefined);
 
@@ -20,15 +20,15 @@ const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
   const values = useDisclosure();
 
   return (
-    <SubscriptionContext.Provider value={values}>
+    <SubscriptionModalContext.Provider value={values}>
       {children}
       <SubscriptionModal />
-    </SubscriptionContext.Provider>
+    </SubscriptionModalContext.Provider>
   );
 };
 
-export const useSubscription = () => {
-  const context = useContext(SubscriptionContext);
+export const useSubscriptionModal = () => {
+  const context = useContext(SubscriptionModalContext);
 
   if (context === undefined) {
     throw new Error('useSubscription is used outside the SubscriptionProvider');

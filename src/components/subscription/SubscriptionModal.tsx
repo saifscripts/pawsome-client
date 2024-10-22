@@ -1,4 +1,4 @@
-import { useSubscription } from '@/contexts/subscription.context';
+import { useSubscriptionModal } from '@/contexts/subscription-modal.context';
 import { useInitiatePayment } from '@/hooks/subscription.hook';
 import { BDT } from '@/utils/format';
 import { Button } from '@nextui-org/button';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function SubscriptionModal() {
-  const { isOpen, onClose, onOpenChange } = useSubscription();
+  const { isOpen, onClose, onOpenChange } = useSubscriptionModal();
   const { mutate: initiatePayment, isPending } = useInitiatePayment();
   const [subscriptionType, setSubscriptionType] = useState('');
 

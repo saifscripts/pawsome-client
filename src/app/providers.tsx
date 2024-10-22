@@ -1,7 +1,7 @@
 'use client';
 
 import AuthProvider from '@/contexts/auth.context';
-import SubscriptionProvider from '@/contexts/subscription.context';
+import SubscriptionProvider from '@/contexts/subscription-modal.context';
 import { NextUIProvider } from '@nextui-org/system';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
