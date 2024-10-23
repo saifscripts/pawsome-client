@@ -1,20 +1,10 @@
 import SubscriptionModal from '@/components/subscription/SubscriptionModal';
-import { useDisclosure } from '@nextui-org/modal';
+import { useDisclosure, UseDisclosureProps } from '@nextui-org/modal';
 import { createContext, ReactNode, useContext } from 'react';
 
-interface ISubscriptionProviderValues {
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  onOpenChange: () => void;
-  isControlled: boolean;
-  getButtonProps: (props?: any) => any;
-  getDisclosureProps: (props?: any) => any;
-}
-
-const SubscriptionModalContext = createContext<
-  ISubscriptionProviderValues | undefined
->(undefined);
+const SubscriptionModalContext = createContext<UseDisclosureProps | undefined>(
+  undefined
+);
 
 const SubscriptionModalProvider = ({ children }: { children: ReactNode }) => {
   const values = useDisclosure();
