@@ -16,7 +16,7 @@ const SubscriptionModalContext = createContext<
   ISubscriptionProviderValues | undefined
 >(undefined);
 
-const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
+const SubscriptionModalProvider = ({ children }: { children: ReactNode }) => {
   const values = useDisclosure();
 
   return (
@@ -37,4 +37,4 @@ export const useSubscriptionModal = () => {
   return context;
 };
 
-export default SubscriptionProvider;
+export default SubscriptionModalProvider;
