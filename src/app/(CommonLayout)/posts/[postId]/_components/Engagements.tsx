@@ -8,7 +8,7 @@ import { IPost } from '@/types';
 import { Button } from '@nextui-org/button';
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react';
 
-export default function Footer({ post }: { post: IPost }) {
+export default function Engagements({ post }: { post: IPost }) {
   const { mutate: upvotePost } = useUpvotePost(post);
   const { mutate: downvotePost } = useDownvotePost(post);
   const { user } = useAuth();

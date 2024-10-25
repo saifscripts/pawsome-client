@@ -6,8 +6,12 @@ import { AxiosError } from 'axios';
 import { FieldValues } from 'react-hook-form';
 
 export const getMe = async () => {
-  const { data } = await axios.get<IUserResponse>('/users/me');
-  return data;
+  try {
+    const { data } = await axios.get<IUserResponse>('/users/me');
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
 };
 
 export const getUser = async (id: string) => {

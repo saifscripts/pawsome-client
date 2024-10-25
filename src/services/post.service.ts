@@ -19,7 +19,7 @@ export const createPost = async (formData: FormData) => {
 };
 
 export const getPost = async (id: string) => {
-  const res = await fetch(`${env.base_url}/posts/${id}`, { cache: 'no-store' });
+  const res = await fetch(`${env.base_url}/posts/${id}`, { cache: 'no-cache' });
 
   if (!res.ok) {
     throw new Error('Failed to fetch post!');

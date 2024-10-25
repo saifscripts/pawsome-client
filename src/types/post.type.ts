@@ -8,7 +8,7 @@ export interface IPost {
   _id: string;
   title: string;
   summary: string;
-  content: string;
+  content?: string;
   author: IUser;
   category: IPostCategory;
   tags: string[];

@@ -1,8 +1,9 @@
 'use server';
 
+import env from '@/config/env';
 import nexios from '@/lib/nexios';
 import { IUser } from '@/types';
-import { IAuthResponse, IResponse } from '@/types/global.type';
+import { IAuthResponse, IResponse, IUserResponse } from '@/types/global.type';
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { FieldValues } from 'react-hook-form';
@@ -62,4 +63,18 @@ export const getCurrentUser = async () => {
   }
 
   return decodedToken;
+};
+
+export const getAuthUser = async (): Promise<IUserResponse | null> => {
+  const res = await fetch(`${env.base_url}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  return res.json();
 };

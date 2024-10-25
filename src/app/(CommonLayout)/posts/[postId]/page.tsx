@@ -1,7 +1,11 @@
+import { USER_TYPE } from '@/constants';
+import { getAuthUser } from '@/services/auth.service';
 import { getPost } from '@/services/post.service';
 import Image from 'next/image';
-import Footer from './_components/Footer';
+import { redirect } from 'next/navigation';
+import Engagements from './_components/Engagements';
 import Topbar from './_components/Topbar';
+import UpgradePremium from './_components/UpgradePremium';
 
 export default async function PostPage({
   params,
@@ -10,11 +14,18 @@ export default async function PostPage({
 }) {
   const { postId } = params;
   const { data: post } = await getPost(postId);
+  const res = await getAuthUser();
+  const user = res?.data;
+
+  if (!user && post.isPremium) {
+    return redirect('/login');
+  }
 
   return (
     <>
       <Topbar />
-      <div className="p-4">
+      <div className="p-4 space-y-4 relative">
+        <Engagements post={post} />
         <div className="w-full aspect-video rounded-xl overflow-hidden">
           <Image
             src={post.featuredImage}
@@ -25,13 +36,21 @@ export default async function PostPage({
           />
         </div>
         <h1 className="font-bold text-2xl my-4">{post.title}</h1>
+        <p className="text-sm text-default-500">{post.summary}</p>
         <div
           className="post"
           style={{ width: '100%' }}
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: post?.content || '' }}
         />
-        <Footer post={post} />
+
+        {user?.userType === USER_TYPE.BASIC && post.isPremium && (
+          <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-white dark:from-black to-transparent" />
+        )}
       </div>
+
+      {user?.userType === USER_TYPE.BASIC && post.isPremium && (
+        <UpgradePremium />
+      )}
     </>
   );
 }
