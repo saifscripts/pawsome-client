@@ -6,7 +6,7 @@ import {
   resetPassword,
 } from '@/services/auth.service';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -33,6 +33,8 @@ export const useUserRegistration = () => {
 };
 
 export const useUserLogin = () => {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
   const router = useRouter();
   const { setIsLoading } = useAuth();
 
@@ -42,7 +44,7 @@ export const useUserLogin = () => {
     onSuccess: (data) => {
       if (data?.success) {
         setIsLoading(true);
-        router.push('/');
+        router.replace(redirect || '/');
         toast.success('Successfully logged in!');
       } else {
         toast.error(data?.message);

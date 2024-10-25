@@ -18,7 +18,7 @@ export default async function PostPage({
   const user = res?.data;
 
   if (!user && post.isPremium) {
-    return redirect('/login');
+    return redirect(`/login?redirect=/posts/${postId}`);
   }
 
   return (
