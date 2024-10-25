@@ -4,6 +4,7 @@ import env from '@/config/env';
 import axios from '@/lib/axios';
 import { IPostResponse } from '@/types';
 import { AxiosError } from 'axios';
+import { cookies } from 'next/headers';
 
 export const createPost = async (formData: FormData) => {
   try {
@@ -19,7 +20,12 @@ export const createPost = async (formData: FormData) => {
 };
 
 export const getPost = async (id: string) => {
-  const res = await fetch(`${env.base_url}/posts/${id}`, { cache: 'no-cache' });
+  const res = await fetch(`${env.base_url}/posts/${id}`, {
+    cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch post!');
