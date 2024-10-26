@@ -13,7 +13,6 @@ export default function SidebarMenu() {
       <div>
         <h4 className="text-sm font-medium mb-1">Feed</h4>
         <div className="flex flex-col gap-1 ml-2">
-          {/* <Link href="/?feed=all"> */}
           <Button
             onClick={() => {
               router.push('/?feed=all');
@@ -33,8 +32,7 @@ export default function SidebarMenu() {
             <HomeIcon size={16} />
             All Posts
           </Button>
-          {/* </Link> */}
-          {/* <Link href="/?feed=following"> */}
+
           <Button
             onClick={() => {
               router.push('/?feed=following');
@@ -50,7 +48,6 @@ export default function SidebarMenu() {
             <UserIcon size={16} />
             Following
           </Button>
-          {/* </Link> */}
         </div>
       </div>
     </div>

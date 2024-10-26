@@ -1,5 +1,7 @@
 'use client';
 
+import FollowButton from '@/components/post/FollowButton';
+import { useAuth } from '@/contexts/auth.context';
 import { useUploadAvatar, useUser } from '@/hooks/profile.hook';
 import { Spinner } from '@nextui-org/spinner';
 import { format } from 'date-fns';
@@ -12,6 +14,9 @@ export default function Header() {
   const { mutate: uploadAvatar, isPending } = useUploadAvatar();
   const { data } = useUser();
   const user = data?.data;
+  const { user: authUser } = useAuth();
+
+  const isMyProfile = authUser?._id === user?._id;
 
   const handleUploadImage: ChangeEventHandler<HTMLInputElement> = (e) => {
     const file = e.target.files?.[0];
@@ -56,7 +61,7 @@ export default function Header() {
         </div>
       </div>
       <div className="h-20 w-full p-4 flex justify-end">
-        <EditProfile />
+        {isMyProfile ? <EditProfile /> : <FollowButton userId={user?._id!} />}
       </div>
       <div className="p-4">
         <h1 className="text-xl uppercase">{user?.name}</h1>
