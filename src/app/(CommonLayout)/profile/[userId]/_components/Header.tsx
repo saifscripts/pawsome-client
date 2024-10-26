@@ -12,9 +12,9 @@ import EditProfile from './EditProfile';
 
 export default function Header() {
   const { mutate: uploadAvatar, isPending } = useUploadAvatar();
+  const { user: authUser } = useAuth();
   const { data } = useUser();
   const user = data?.data;
-  const { user: authUser } = useAuth();
 
   const isMyProfile = authUser?._id === user?._id;
 

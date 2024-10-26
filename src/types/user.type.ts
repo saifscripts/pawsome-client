@@ -21,8 +21,8 @@ export interface IUser {
   status: IUserStatus;
   userType: IUserType;
   subscription: ISubscription;
-  followers: string[];
-  following: string[];
+  followers: IUser[];
+  following: IUser[];
   posts: IPost[];
   createdAt: Date;
   isDeleted: boolean;

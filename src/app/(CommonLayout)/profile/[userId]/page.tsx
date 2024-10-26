@@ -8,7 +8,7 @@ export default function PostsPage() {
   const user = data?.data;
 
   return (
-    <div className="space-y-6">
+    <div className="p-4 space-y-6">
       {user?.posts.length &&
         user?.posts
           ?.sort((p1, p2) => {

@@ -12,7 +12,7 @@ export default function ProfileLayout({
       <Topbar />
       <Header />
       <Tabs />
-      <div className="p-4">{children}</div>
+      {children}
     </>
   );
 }
