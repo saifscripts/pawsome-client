@@ -28,6 +28,26 @@ export const updateProfile = async (fieldValues: FieldValues) => {
   }
 };
 
+export const followUser = async (userId: string) => {
+  try {
+    const { data } = await axios.put<IUserResponse>(`/users/${userId}/follow`);
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
+};
+
+export const unfollowUser = async (userId: string) => {
+  try {
+    const { data } = await axios.put<IUserResponse>(
+      `/users/${userId}/unfollow`
+    );
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
+};
+
 export const uploadAvatar = async (formData: FormData) => {
   const { data } = await axios.post<IUserResponse>('/users/avatar', formData, {
     headers: {

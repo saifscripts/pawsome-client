@@ -11,8 +11,8 @@ import { Chip } from '@nextui-org/chip';
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React from 'react';
 import CommentsModal from './CommentsModal';
+import FollowButton from './FollowButton';
 import PostDropdown from './PostDropdown';
 
 export default function PostCard({
@@ -22,7 +22,6 @@ export default function PostCard({
   post: IPost;
   author: IUser;
 }) {
-  const [isFollowed, setIsFollowed] = React.useState(false);
   const { mutate: upvotePost } = useUpvotePost(post);
   const { mutate: downvotePost } = useDownvotePost(post);
   const { user } = useAuth();
@@ -51,22 +50,7 @@ export default function PostCard({
                 </h5>
               </div>
             </div>
-            {!isMyPost && (
-              <Button
-                className={
-                  isFollowed
-                    ? 'bg-transparent text-foreground border-default-200'
-                    : ''
-                }
-                color="primary"
-                radius="full"
-                size="sm"
-                variant={isFollowed ? 'bordered' : 'solid'}
-                onPress={() => setIsFollowed(!isFollowed)}
-              >
-                {isFollowed ? 'Unfollow' : 'Follow'}
-              </Button>
-            )}
+            {!isMyPost && <FollowButton userId={author._id} />}
           </div>
 
           <div className="flex gap-5 items-center">
