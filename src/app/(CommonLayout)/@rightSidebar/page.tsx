@@ -76,6 +76,13 @@ export default function RightSidebar() {
     router.replace(pathname + '?' + params);
   };
 
+  const handleReset = () => {
+    const feed = searchParams.get('feed');
+    const params = new URLSearchParams();
+    if (feed) params.set('feed', feed);
+    router.replace(pathname + '?' + params.toString());
+  };
+
   return (
     <aside className="w-[300px] h-full overflow-y-auto border-l border-divider p-4">
       <Accordion
@@ -160,7 +167,7 @@ export default function RightSidebar() {
               size="sm"
               color="danger"
               variant="flat"
-              onClick={() => router.replace(pathname)}
+              onClick={handleReset}
             >
               <FilterXIcon size={16} />
               Reset

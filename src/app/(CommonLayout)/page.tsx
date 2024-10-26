@@ -12,7 +12,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function HomePage() {
   const pathname = usePathname();
-  const route = useRouter();
+  const router = useRouter();
   const [page, setPage] = useState(0);
   const [limit] = useState(10);
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -49,7 +49,7 @@ export default function HomePage() {
     const filters: string[] = [];
 
     searchParams.forEach((value, key) => {
-      if (key === 'sort') return;
+      if (['sort', 'feed'].includes(key)) return;
 
       if (key === 'isPremium') {
         filters.push(value === 'true' ? 'premium' : 'free');
@@ -97,7 +97,14 @@ export default function HomePage() {
     const value = e.target.value;
     if (!value) return;
     const params = setParam('sort', value);
-    route.replace(pathname + '?' + params);
+    router.replace(pathname + '?' + params);
+  };
+
+  const handleReset = () => {
+    const feed = searchParams.get('feed');
+    const params = new URLSearchParams();
+    if (feed) params.set('feed', feed);
+    router.replace(pathname + '?' + params.toString());
   };
 
   return (
@@ -133,7 +140,7 @@ export default function HomePage() {
                 color="danger"
                 variant="flat"
                 isIconOnly
-                onClick={() => route.replace(pathname)}
+                onClick={handleReset}
               >
                 <XIcon size={20} />
               </Button>
