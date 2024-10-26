@@ -39,6 +39,9 @@ export const getPosts = async (params: URLSearchParams) => {
 
   const res = await fetch(`${env.base_url}/posts?${searchParams.toString()}`, {
     cache: 'no-store',
+    headers: {
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
   });
 
   if (!res.ok) {
