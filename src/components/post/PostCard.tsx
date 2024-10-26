@@ -1,10 +1,10 @@
 'use client';
 
+import UserCard from '@/app/(CommonLayout)/profile/[userId]/_components/UserCard';
 import { useAuth } from '@/contexts/auth.context';
 import { useDownvotePost, useUpvotePost } from '@/hooks/post.hook';
 import { cn } from '@/lib/cn';
 import { IPost, IUser } from '@/types';
-import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Chip } from '@nextui-org/chip';
@@ -12,7 +12,6 @@ import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import CommentsModal from './CommentsModal';
-import FollowButton from './FollowButton';
 import PostDropdown from './PostDropdown';
 
 export default function PostCard({
@@ -33,25 +32,7 @@ export default function PostCard({
     <div onClick={() => route.push(`/posts/${post._id}`)}>
       <Card className="cursor-pointer">
         <CardHeader className="justify-between">
-          <div className="flex gap-10 items-center">
-            <div className="flex gap-5">
-              <Avatar
-                isBordered
-                radius="full"
-                size="md"
-                src={author?.avatarURL}
-              />
-              <div className="flex flex-col gap-1 items-start justify-center">
-                <h4 className="text-small font-semibold leading-none text-default-600">
-                  {author?.name}
-                </h4>
-                <h5 className="text-small tracking-tight text-default-400">
-                  @{author.email.split('@')[0]}
-                </h5>
-              </div>
-            </div>
-            {!isMyPost && <FollowButton userId={author._id} />}
-          </div>
+          <UserCard user={author} className="w-auto px-3 py-2 rounded-full" />
 
           <div className="flex gap-5 items-center">
             {post.isPremium ? (

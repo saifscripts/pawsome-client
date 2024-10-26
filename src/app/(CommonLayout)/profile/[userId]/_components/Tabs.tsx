@@ -3,12 +3,7 @@
 import { useUser } from '@/hooks/profile.hook';
 import { Chip } from '@nextui-org/chip';
 import { Tabs as NextTabs, Tab } from '@nextui-org/tabs';
-import {
-  ContactIcon,
-  SquarePenIcon,
-  UserCheckIcon,
-  UserPlusIcon,
-} from 'lucide-react';
+import { SquarePenIcon, UserCheckIcon, UserPlusIcon } from 'lucide-react';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 
 export default function Tabs() {
@@ -24,12 +19,6 @@ export default function Tabs() {
       title: 'Posts',
       icon: SquarePenIcon,
       value: user?.posts?.length,
-    },
-    {
-      path: `/profile/${userId}/about`,
-      title: 'About',
-      icon: ContactIcon,
-      value: 0,
     },
     {
       path: `/profile/${userId}/following`,

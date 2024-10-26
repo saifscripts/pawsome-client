@@ -28,6 +28,24 @@ export interface IUser {
   isDeleted: boolean;
 }
 
+export interface IAuthUser {
+  _id: string;
+  name: string;
+  email: string;
+  password?: string;
+  phone: string;
+  avatarURL?: string;
+  role: IUserRole;
+  status: IUserStatus;
+  userType: IUserType;
+  subscription: ISubscription;
+  followers: string[];
+  following: string[];
+  posts: IPost[];
+  createdAt: Date;
+  isDeleted: boolean;
+}
+
 export interface IDecodedUser {
   id: string;
   role: IUserRole;
