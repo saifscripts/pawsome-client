@@ -7,7 +7,7 @@ import { AxiosError } from 'axios';
 export const initiatePayment = async (options: IInitiatePayment) => {
   try {
     const { data } = await axios.post<IResponse<{ payment_url: string }>>(
-      '/payments/initiate-payment',
+      `/payments/initiate-payment?redirectPath=${options.redirectPath}`,
       options
     );
     return data;

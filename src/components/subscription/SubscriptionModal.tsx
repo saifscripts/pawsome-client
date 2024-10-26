@@ -6,16 +6,18 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Modal, ModalBody, ModalContent } from '@nextui-org/modal';
 import { CheckIcon, CrownIcon, SquareCheckBigIcon } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export default function SubscriptionModal() {
   const { isOpen, onClose, onOpenChange } = useSubscriptionModal();
   const { mutate: initiatePayment, isPending } = useInitiatePayment();
   const [subscriptionType, setSubscriptionType] = useState('');
+  const pathname = usePathname();
 
   const handleSubscription = (subscriptionType: 'monthly' | 'yearly') => {
     setSubscriptionType(subscriptionType);
-    initiatePayment({ subscriptionType });
+    initiatePayment({ subscriptionType, redirectPath: pathname });
   };
 
   return (
