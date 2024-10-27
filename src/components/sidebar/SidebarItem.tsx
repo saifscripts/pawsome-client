@@ -21,7 +21,13 @@ export default function SidebarItem({
   const searchParams = useSearchParams();
   const currentPath = usePathname();
 
-  // TODO: Create doc for this logic
+  /*
+   * Item is active if the path matches and the params match the conditions:
+   * If there is activeParams and antiActiveParams, then the item is active if all activeParams are present and none of the antiActiveParams are present.
+   * If there is only activeParams, then the item is active if all activeParams are present.
+   * If there is only antiActiveParams, then the item is active if none of the antiActiveParams are present.
+   * If there is neither activeParams nor antiActiveParams, then the item is active if the path matches.
+   */
   const isActive = useMemo(() => {
     const isPathMatch = currentPath === path;
 
