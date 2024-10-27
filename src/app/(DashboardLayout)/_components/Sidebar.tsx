@@ -26,9 +26,9 @@ export default function Sidebar() {
           path="/dashboard/subscriptions"
         />
         <SidebarItem
-          title="Calculate Nutrition"
+          title="Nutrition"
           icon={<CalculatorIcon size={16} />}
-          path="/dashboard/calculate-nutrition"
+          path="/dashboard/nutrition"
         />
         <SidebarItem
           title="Settings"
