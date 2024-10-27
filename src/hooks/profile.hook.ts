@@ -77,6 +77,7 @@ export const useFollowUser = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries({ queryKey: ['ME'] });
+        queryClient.invalidateQueries({ queryKey: ['USER'] });
         toast.success('User followed successfully!');
       } else {
         toast.error(data?.message);
@@ -97,6 +98,7 @@ export const useUnfollowUser = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.invalidateQueries({ queryKey: ['ME'] });
+        queryClient.invalidateQueries({ queryKey: ['USER'] });
         toast.success('User unfollowed successfully!');
       } else {
         toast.error(data?.message);
