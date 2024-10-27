@@ -7,7 +7,7 @@ export default function SidebarMenu({
 }) {
   return (
     <div>
-      <h4 className="text-sm font-medium mb-1">{title}</h4>
+      <h4 className="text-sm text-default-400 font-medium mb-1">{title}</h4>
       <div className="flex flex-col gap-1 ml-2">{children}</div>
     </div>
   );

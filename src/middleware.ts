@@ -10,7 +10,7 @@ const AuthRoutes = [
 ];
 export const RoleBasedRoutes = {
   admin: [/^\/dashboard/, '/create-post', /^\/edit-post/],
-  user: ['/create-post', /^\/edit-post/],
+  user: [/^\/dashboard/, '/create-post', /^\/edit-post/],
 };
 
 export async function middleware(request: NextRequest) {
