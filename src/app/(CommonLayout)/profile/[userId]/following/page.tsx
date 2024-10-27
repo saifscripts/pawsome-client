@@ -1,7 +1,7 @@
 'use client';
 
+import UserCard from '@/components/user/UserCard';
 import { useUser } from '@/hooks/profile.hook';
-import UserCard from '../_components/UserCard';
 
 export default function FollowingPage() {
   const { data } = useUser();

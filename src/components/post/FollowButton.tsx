@@ -3,7 +3,7 @@ import { Button } from '@nextui-org/button';
 
 export default function FollowButton({ userId }: { userId: string }) {
   const { data: user } = useMe();
-  const isFollowed = user?.data?.following.includes(userId);
+  const isFollowed = user?.data?.following.some((user) => user._id === userId);
   const isMyProfile = user?.data?._id === userId;
 
   const { mutate: followUser, isPending: isFollowing } = useFollowUser();

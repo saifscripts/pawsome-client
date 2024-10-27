@@ -1,6 +1,6 @@
 'use client';
 
-import UserCard from '@/app/(CommonLayout)/profile/[userId]/_components/UserCard';
+import UserCard from '@/components/user/UserCard';
 import { useAuth } from '@/contexts/auth.context';
 import { useDownvotePost, useUpvotePost } from '@/hooks/post.hook';
 import { cn } from '@/lib/cn';

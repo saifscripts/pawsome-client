@@ -1,13 +1,13 @@
 'use server';
 
 import axios from '@/lib/axios';
-import { IAuthUser, IResponse, IUser, IUserResponse } from '@/types';
+import { IResponse, IUser, IUserResponse } from '@/types';
 import { AxiosError } from 'axios';
 import { FieldValues } from 'react-hook-form';
 
 export const getMe = async () => {
   try {
-    const { data } = await axios.get<IResponse<IAuthUser>>('/users/me');
+    const { data } = await axios.get<IResponse<IUser>>('/users/me');
     return data;
   } catch (error) {
     throw new Error((error as AxiosError<any>)?.response?.data?.message);
