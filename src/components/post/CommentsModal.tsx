@@ -13,6 +13,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from '@nextui-org/modal';
+import { MessageCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
 import AppForm from '../form/AppForm';
@@ -56,9 +57,12 @@ export default function CommentsModal({
 
   return (
     <>
-      <Button radius="full" size="sm" onPress={onOpen}>
+      <Button
+        className="bg-default-200"
+        onPress={onOpen}
+        startContent={<MessageCircle size={18} />}
+      >
         <p>{post?.comments?.length}</p>
-        <p>Comments</p>
       </Button>
       <Modal
         size="xl"

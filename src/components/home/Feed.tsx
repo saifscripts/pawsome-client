@@ -148,16 +148,19 @@ export default function Feed() {
           )}
         </div>
       </div>
-      {posts?.length > 0 &&
-        posts.map((post) => (
-          <PostCard key={post._id} post={post} author={post.author} />
-        ))}
 
-      {hasMore && (
-        <div ref={loader}>
-          <p>Loading more posts...</p>
-        </div>
-      )}
+      <div className="max-w-3xl mx-auto space-y-4">
+        {posts?.length > 0 &&
+          posts.map((post) => (
+            <PostCard key={post._id} post={post} author={post.author} />
+          ))}
+
+        {hasMore && (
+          <div ref={loader}>
+            <p>Loading more posts...</p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

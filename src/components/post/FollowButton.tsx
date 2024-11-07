@@ -17,7 +17,7 @@ export default function FollowButton({ userId }: { userId: string }) {
     }
   };
 
-  if (isMyProfile) return null;
+  if (isMyProfile || !user) return null;
 
   return (
     <Button
