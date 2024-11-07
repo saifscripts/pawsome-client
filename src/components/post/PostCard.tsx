@@ -59,12 +59,7 @@ export default function PostCard({
             <h2 className="font-bold text-xl sm:text-2xl text-default-600 mb-1">
               {post.title}
             </h2>
-            <p className="text-xs sm:text-sm">
-              Frontend developer and UI/UX enthusiast. Join me on this coding
-              adventure! Frontend developer and UI/UX enthusiast. Join me on
-              this coding adventure! Frontend developer and UI/UX enthusiast.
-              Join me on this coding adventure!
-            </p>
+            <p className="text-xs sm:text-sm">{post.summary}</p>
           </div>
           <picture className="flex-1">
             <Image
