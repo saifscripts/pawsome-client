@@ -2,24 +2,14 @@
 
 import UserCard from '@/components/user/UserCard';
 import { useAuth } from '@/contexts/auth.context';
-import { useDownvotePost, useUpvotePost } from '@/hooks/post.hook';
-import { cn } from '@/lib/cn';
 import { IPost, IUser } from '@/types';
-import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Chip } from '@nextui-org/chip';
 import { Divider } from '@nextui-org/divider';
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  CrownIcon,
-  LinkIcon,
-  SparklesIcon,
-} from 'lucide-react';
+import { CrownIcon, SparklesIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import CommentsModal from './CommentsModal';
+import Engagements from './Engagements';
 import PostDropdown from './PostDropdown';
 
 export default function PostCard({
@@ -29,16 +19,14 @@ export default function PostCard({
   post: IPost;
   author: IUser;
 }) {
-  const { mutate: upvotePost } = useUpvotePost(post);
-  const { mutate: downvotePost } = useDownvotePost(post);
   const { user } = useAuth();
   const route = useRouter();
 
   const isMyPost = user?._id === author?._id;
 
   return (
-    <div onClick={() => route.push(`/posts/${post._id}`)} className="p-4">
-      <Card className="cursor-pointer">
+    <div onClick={() => route.push(`/posts/${post._id}`)}>
+      <Card className="cursor-pointer dark:hover:bg-default-100 hover:shadow-large hover:shadow-default-200">
         <CardHeader className="flex justify-between items-center">
           <UserCard
             user={author}
@@ -89,63 +77,8 @@ export default function PostCard({
           </picture>
         </CardBody>
         <Divider />
-        <CardFooter className="flex gap-3 items-center justify-between">
-          <div className="flex gap-3 items-center">
-            <div className="flex gap-2 items-center rounded-xl bg-default-200 p-1">
-              <Button
-                isIconOnly
-                className={cn(
-                  'rounded-lg hover:text-success hover:bg-success/20',
-                  {
-                    'text-success': post.upvotes.includes(user!?._id),
-                  }
-                )}
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  upvotePost(post._id);
-                }}
-              >
-                <ArrowUpIcon size={18} />
-              </Button>
-              <span className="text-sm font-medium">
-                {post.upvotes.length - post.downvotes.length}
-              </span>
-              <Button
-                isIconOnly
-                className={cn(
-                  'rounded-lg hover:text-danger hover:bg-danger/20',
-                  {
-                    'text-danger': post.downvotes.includes(user!?._id),
-                  }
-                )}
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  downvotePost(post._id);
-                }}
-              >
-                <ArrowDownIcon size={18} />
-              </Button>
-            </div>
-            <CommentsModal post={post} author={author} />
-          </div>
-          <div className="flex gap-3 items-center">
-            <Button
-              isIconOnly
-              color="primary"
-              variant="light"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigator.clipboard.writeText(
-                  `${window.location.origin}/posts/${post._id}`
-                );
-                toast.success('Link copied to clipboard');
-              }}
-            >
-              <LinkIcon size={18} />
-            </Button>
-          </div>
+        <CardFooter className="w-full block">
+          <Engagements post={post} />
         </CardFooter>
       </Card>
     </div>
