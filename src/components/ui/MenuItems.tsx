@@ -16,7 +16,7 @@ export default function MenuItems({
   const pathname = usePathname();
 
   return (
-    <div className="mx-4 mt-2 flex flex-col gap-2">
+    <div className="mx-4 mt-2 flex flex-col gap-4">
       {generateMenuItems(user, pathname).map((item, index) => (
         <NavbarMenuItem key={`${item}-${index}`}>
           <Link
