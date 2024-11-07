@@ -1,21 +1,53 @@
-import { Spinner } from '@nextui-org/spinner';
+import { Divider } from '@nextui-org/divider';
+import { Skeleton } from '@nextui-org/skeleton';
 
-export default function Loading() {
+export default function PostPageSkeleton() {
   return (
-    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4 p-4">
-        <div className="relative">
-          <Spinner size="lg" color="primary" className="w-12 h-12" />
-          <div className="absolute inset-0 animate-ping">
-            <Spinner
-              size="lg"
-              color="primary"
-              className="w-12 h-12 opacity-75"
-            />
+    <>
+      {/* Topbar skeleton */}
+      <div className="border-b border-divider">
+        <div className="max-w-3xl mx-auto p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Skeleton className="w-10 h-10 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-32 rounded-lg" />
+              <Skeleton className="h-3 w-24 rounded-lg" />
+            </div>
           </div>
+          <Skeleton className="h-9 w-24 rounded-full" />
         </div>
-        <p className="text-xl font-medium animate-pulse">Loading...</p>
       </div>
-    </div>
+
+      <div className="p-4 space-y-4 max-w-3xl mx-auto relative">
+        {/* Title and summary */}
+        <Skeleton className="h-12 w-3/4 rounded-lg my-4" />
+        <Skeleton className="h-4 w-full rounded-lg" />
+
+        <Divider />
+
+        {/* Engagements skeleton */}
+        <div className="flex gap-6 items-center">
+          <Skeleton className="h-4 w-20 rounded-lg" />
+          <Skeleton className="h-4 w-20 rounded-lg" />
+          <Skeleton className="h-4 w-20 rounded-lg" />
+        </div>
+
+        <Divider />
+
+        {/* Featured image skeleton */}
+        <div className="w-full aspect-video rounded-xl overflow-hidden">
+          <Skeleton className="w-full h-full" />
+        </div>
+
+        {/* Content skeleton */}
+        <div className="space-y-4">
+          <Skeleton className="h-4 w-full rounded-lg" />
+          <Skeleton className="h-4 w-5/6 rounded-lg" />
+          <Skeleton className="h-4 w-4/6 rounded-lg" />
+          <Skeleton className="h-4 w-full rounded-lg" />
+          <Skeleton className="h-4 w-3/4 rounded-lg" />
+        </div>
+      </div>
+    </>
   );
 }

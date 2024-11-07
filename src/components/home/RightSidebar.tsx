@@ -9,6 +9,7 @@ import { Divider } from '@nextui-org/divider';
 import { FilterXIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
+import FadeInElement from '../ui/FadeInElement';
 
 export default function RightSidebar() {
   const router = useRouter();
@@ -84,97 +85,101 @@ export default function RightSidebar() {
   };
 
   return (
-    <aside className="hidden md:block w-[300px] h-[calc(100svh-64px)] overflow-y-auto border-l border-divider p-4">
-      <Accordion
-        selectionMode="multiple"
-        variant="bordered"
-        defaultExpandedKeys={['1', '2', '3']}
-      >
-        <AccordionItem key="1" aria-label="Categories" title="Categories">
-          <div className="flex flex-col gap-2">
-            <Checkbox
-              isSelected={searchParams.getAll('category').includes('tip')}
-              onValueChange={(checked) => handleCategoryChange(checked, 'tip')}
-            >
-              Tip
-            </Checkbox>
-            <Checkbox
-              isSelected={searchParams.getAll('category').includes('story')}
-              onValueChange={(checked) =>
-                handleCategoryChange(checked, 'story')
-              }
-            >
-              Story
-            </Checkbox>
-          </div>
-        </AccordionItem>
-        <AccordionItem key="2" aria-label="Content Type" title="Content Type">
-          <div className="flex flex-col gap-2">
-            <Checkbox
-              isSelected={searchParams.getAll('isPremium').includes('false')}
-              onValueChange={(checked) =>
-                handleContentTypeChange(checked, 'false')
-              }
-            >
-              Free
-            </Checkbox>
-            <Checkbox
-              isSelected={searchParams.getAll('isPremium').includes('true')}
-              onValueChange={(checked) =>
-                handleContentTypeChange(checked, 'true')
-              }
-            >
-              Premium
-            </Checkbox>
-          </div>
-        </AccordionItem>
-        <AccordionItem key="3" aria-label="Keywords" title="Keywords">
-          <div className="flex gap-2 flex-wrap">
-            {tags?.data &&
-              tags?.data?.length > 0 &&
-              tags?.data
-                ?.sort((a, b) => {
-                  if (b.count > a.count) {
-                    return 1;
-                  } else if (b.count < a.count) {
-                    return -1;
-                  } else if (b._id < a._id) {
-                    return 1;
-                  } else if (b._id > a._id) {
-                    return -1;
-                  } else {
-                    return 0;
-                  }
-                })
-                ?.map((tag) => (
-                  <Chip
-                    onClick={() => handleKeywordChange(tag._id)}
-                    key={tag._id}
-                    color={
-                      searchParams.get('tags') === tag._id
-                        ? 'primary'
-                        : 'default'
+    <FadeInElement>
+      <aside className="hidden md:block w-[300px] h-[calc(100svh-64px)] overflow-y-auto border-l border-divider p-4">
+        <Accordion
+          selectionMode="multiple"
+          variant="bordered"
+          defaultExpandedKeys={['1', '2', '3']}
+        >
+          <AccordionItem key="1" aria-label="Categories" title="Categories">
+            <div className="flex flex-col gap-2">
+              <Checkbox
+                isSelected={searchParams.getAll('category').includes('tip')}
+                onValueChange={(checked) =>
+                  handleCategoryChange(checked, 'tip')
+                }
+              >
+                Tip
+              </Checkbox>
+              <Checkbox
+                isSelected={searchParams.getAll('category').includes('story')}
+                onValueChange={(checked) =>
+                  handleCategoryChange(checked, 'story')
+                }
+              >
+                Story
+              </Checkbox>
+            </div>
+          </AccordionItem>
+          <AccordionItem key="2" aria-label="Content Type" title="Content Type">
+            <div className="flex flex-col gap-2">
+              <Checkbox
+                isSelected={searchParams.getAll('isPremium').includes('false')}
+                onValueChange={(checked) =>
+                  handleContentTypeChange(checked, 'false')
+                }
+              >
+                Free
+              </Checkbox>
+              <Checkbox
+                isSelected={searchParams.getAll('isPremium').includes('true')}
+                onValueChange={(checked) =>
+                  handleContentTypeChange(checked, 'true')
+                }
+              >
+                Premium
+              </Checkbox>
+            </div>
+          </AccordionItem>
+          <AccordionItem key="3" aria-label="Keywords" title="Keywords">
+            <div className="flex gap-2 flex-wrap">
+              {tags?.data &&
+                tags?.data?.length > 0 &&
+                tags?.data
+                  ?.sort((a, b) => {
+                    if (b.count > a.count) {
+                      return 1;
+                    } else if (b.count < a.count) {
+                      return -1;
+                    } else if (b._id < a._id) {
+                      return 1;
+                    } else if (b._id > a._id) {
+                      return -1;
+                    } else {
+                      return 0;
                     }
-                    className="cursor-pointer capitalize"
-                  >
-                    {tag._id}
-                  </Chip>
-                ))}
-          </div>
-          <Divider className="my-4" />
-          <div className="flex justify-end">
-            <Button
-              size="sm"
-              color="danger"
-              variant="flat"
-              onClick={handleReset}
-            >
-              <FilterXIcon size={16} />
-              Reset
-            </Button>
-          </div>
-        </AccordionItem>
-      </Accordion>
-    </aside>
+                  })
+                  ?.map((tag) => (
+                    <Chip
+                      onClick={() => handleKeywordChange(tag._id)}
+                      key={tag._id}
+                      color={
+                        searchParams.get('tags') === tag._id
+                          ? 'primary'
+                          : 'default'
+                      }
+                      className="cursor-pointer capitalize"
+                    >
+                      {tag._id}
+                    </Chip>
+                  ))}
+            </div>
+            <Divider className="my-4" />
+            <div className="flex justify-end">
+              <Button
+                size="sm"
+                color="danger"
+                variant="flat"
+                onClick={handleReset}
+              >
+                <FilterXIcon size={16} />
+                Reset
+              </Button>
+            </div>
+          </AccordionItem>
+        </Accordion>
+      </aside>
+    </FadeInElement>
   );
 }

@@ -7,49 +7,83 @@ import AppTextarea from '@/components/form/AppTextarea';
 import { title } from '@/components/primitives';
 import { contactSchema } from '@/schemas/contact.schema';
 import { Divider } from '@nextui-org/divider';
+import { motion } from 'framer-motion';
 import { MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 
 export default function ContactPage() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.5, staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="container mx-auto px-6 py-12 space-y-12">
-      <div className="text-center">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="container mx-auto px-6 py-12 space-y-12"
+    >
+      <motion.div variants={itemVariants} className="text-center">
         <h1 className={title()}>Contact Us</h1>
         <p className="text-default-600 mt-4 text-lg">
           We're here to help! Reach out to us with any inquiries or support
           needs.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-3xl mx-auto">
-        <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center border border-transparent dark:border-divider">
+        <motion.div
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          className="p-6 rounded-2xl shadow-lg flex flex-col items-center border border-transparent dark:border-divider"
+        >
           <div className="bg-primary-100 p-3 rounded-full mb-3">
             <PhoneIcon className="w-8 h-8 text-primary-500" />
           </div>
           <p className="text-default-700 font-semibold">
             <span>+88 017 66637772</span>
           </p>
-        </div>
-        <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center border border-transparent dark:border-divider">
+        </motion.div>
+        <motion.div
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          className="p-6 rounded-2xl shadow-lg flex flex-col items-center border border-transparent dark:border-divider"
+        >
           <div className="bg-primary-100 p-3 rounded-full mb-3">
             <MailIcon className="w-8 h-8 text-primary-500" />
           </div>
           <p className="text-default-700 font-semibold">
             <span>support@pawsome.com</span>
           </p>
-        </div>
-        <div className="p-6 rounded-2xl shadow-lg flex flex-col items-center border border-transparent dark:border-divider">
+        </motion.div>
+        <motion.div
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          className="p-6 rounded-2xl shadow-lg flex flex-col items-center border border-transparent dark:border-divider"
+        >
           <div className="bg-primary-100 p-3 rounded-full mb-3">
             <MapPinIcon className="w-8 h-8 text-primary-500" />
           </div>
           <p className="text-default-700 font-semibold">
             <span>Dhaka, Bangladesh</span>
           </p>
-        </div>
+        </motion.div>
       </div>
 
       <Divider className="w-full max-w-4xl mx-auto" />
 
-      <div className="dark:border dark:border-divider p-6 rounded-xl shadow-lg max-w-lg mx-auto">
+      <motion.div
+        variants={itemVariants}
+        className="dark:border dark:border-divider p-6 rounded-xl shadow-lg max-w-lg mx-auto"
+      >
         <div className="text-center mb-6">
           <h2 className="text-2xl font-semibold">Get in Touch</h2>
           <p className="text-default-600 mt-2">
@@ -58,25 +92,37 @@ export default function ContactPage() {
           </p>
         </div>
         <AppForm onSubmit={() => {}} formSchema={contactSchema}>
-          <AppInput
-            name="name"
-            label="Name"
-            placeholder="Enter your full name"
-          />
-          <AppInput
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="Enter your email address"
-          />
-          <AppTextarea
-            name="message"
-            label="Message"
-            placeholder="Describe your inquiry or support request"
-          />
-          <AppSubmit color="primary">Send Message</AppSubmit>
+          <motion.div variants={itemVariants}>
+            <AppInput
+              name="name"
+              label="Name"
+              placeholder="Enter your full name"
+            />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <AppInput
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Enter your email address"
+            />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <AppTextarea
+              name="message"
+              label="Message"
+              placeholder="Describe your inquiry or support request"
+            />
+          </motion.div>
+          <motion.div
+            variants={itemVariants}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <AppSubmit color="primary">Send Message</AppSubmit>
+          </motion.div>
         </AppForm>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
