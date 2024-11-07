@@ -1,6 +1,7 @@
 import { RoleBasedRoutes } from '@/middleware';
 import { getCurrentUser, logoutUser } from '@/services/auth.service';
 import { IUser, IUserRole } from '@/types';
+import { useQueryClient } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   createContext,
@@ -27,6 +28,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     (async () => {
@@ -38,8 +40,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [isLoading]);
 
   const logout = () => {
-    logoutUser();
     setIsLoading(true);
+    logoutUser();
 
     if (
       RoleBasedRoutes[user?.role as IUserRole].some((route: RegExp | string) =>
@@ -48,6 +50,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     ) {
       router.push('/');
     }
+
+    queryClient.resetQueries({ queryKey: ['ME'] });
   };
 
   const value = { user, setUser, isLoading, setIsLoading, logout };

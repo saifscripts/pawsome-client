@@ -1,24 +1,30 @@
+'use client';
+
 import SidebarItem from '@/components/sidebar/SidebarItem';
 import SidebarMenu from '@/components/sidebar/SidebarMenu';
-import { HomeIcon, UserIcon } from 'lucide-react';
+import { useMe } from '@/hooks/user.hook';
+import { Divider } from '@nextui-org/divider';
+import { Fragment } from 'react';
+import generateSidebarLinks from './generateSidebarLinks';
 
 export default function Menu() {
+  const { data } = useMe();
+  const user = data?.data;
+
   return (
     <div>
-      <SidebarMenu title="Feed">
-        <SidebarItem
-          title="All Posts"
-          icon={<HomeIcon size={16} />}
-          path="/"
-          antiActiveParams={[{ key: 'feed', value: 'following' }]}
-        />
-        <SidebarItem
-          title="Following"
-          icon={<UserIcon size={16} />}
-          path="/"
-          activeParams={[{ key: 'feed', value: 'following' }]}
-        />
-      </SidebarMenu>
+      {generateSidebarLinks(user).map((menu) =>
+        menu.links.length > 0 ? (
+          <Fragment key={menu.title}>
+            <SidebarMenu title={menu.title}>
+              {menu.links.map((link) => (
+                <SidebarItem key={link.title} {...link} />
+              ))}
+            </SidebarMenu>
+            <Divider className="my-4" />
+          </Fragment>
+        ) : null
+      )}
     </div>
   );
 }

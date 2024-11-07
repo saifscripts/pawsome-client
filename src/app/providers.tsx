@@ -23,8 +23,8 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 
   return (
     <NextUIProvider navigate={router.push}>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
           <SubscriptionModalProvider>
             <DeletePostModalProvider>
               <Toaster />
@@ -33,8 +33,8 @@ export function Providers({ children, themeProps }: ProvidersProps) {
               </NextThemesProvider>
             </DeletePostModalProvider>
           </SubscriptionModalProvider>
-        </QueryClientProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </NextUIProvider>
   );
 }
