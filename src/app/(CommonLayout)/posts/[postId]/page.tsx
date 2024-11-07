@@ -3,7 +3,6 @@ import { getAuthUser } from '@/services/auth.service';
 import { getPost } from '@/services/post.service';
 import { Divider } from '@nextui-org/divider';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 import Engagements from '../../../../components/post/Engagements';
 import Topbar from './_components/Topbar';
 import UpgradePremium from './_components/UpgradePremium';
@@ -17,10 +16,6 @@ export default async function PostPage({
   const { data: post } = await getPost(postId);
   const res = await getAuthUser();
   const user = res?.data;
-
-  if (!user && post.isPremium) {
-    return redirect(`/login?redirect=/posts/${postId}`);
-  }
 
   return (
     <>
@@ -52,9 +47,10 @@ export default async function PostPage({
         )}
       </div>
 
-      {user?.userType === USER_TYPE.BASIC && post.isPremium && (
-        <UpgradePremium />
-      )}
+      {user
+        ? user?.userType === USER_TYPE.BASIC &&
+          post.isPremium && <UpgradePremium />
+        : post.isPremium && <UpgradePremium />}
     </>
   );
 }

@@ -1,6 +1,8 @@
 import SubscriptionModal from '@/components/subscription/SubscriptionModal';
 import { useDisclosure } from '@nextui-org/modal';
-import { createContext, ReactNode, useContext } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { createContext, ReactNode, useCallback, useContext } from 'react';
+import { useAuth } from './auth.context';
 
 interface SubscriptionModalContextProps {
   isOpen: boolean;
@@ -18,9 +20,20 @@ const SubscriptionModalContext = createContext<
 
 const SubscriptionModalProvider = ({ children }: { children: ReactNode }) => {
   const values = useDisclosure();
+  const { user } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const onOpen = useCallback(() => {
+    if (!user) {
+      router.push(`/login?redirect=${pathname}`);
+    } else {
+      values.onOpen();
+    }
+  }, [user]);
 
   return (
-    <SubscriptionModalContext.Provider value={values}>
+    <SubscriptionModalContext.Provider value={{ ...values, onOpen }}>
       {children}
       <SubscriptionModal />
     </SubscriptionModalContext.Provider>
