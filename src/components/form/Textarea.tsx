@@ -1,10 +1,11 @@
 'use client';
 
-import { Select, SelectItem } from '@nextui-org/select';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { Textarea as NextUITextarea } from '@nextui-org/input';
+import { useFormContext } from 'react-hook-form';
 
 interface IProps {
   name: string;
+  type?: string;
   variant?: 'bordered' | 'flat' | 'faded' | 'underlined' | undefined;
   color?:
     | 'default'
@@ -17,41 +18,32 @@ interface IProps {
   label?: React.ReactNode;
   labelPlacement?: 'inside' | 'outside' | 'outside-left';
   placeholder?: string;
-  options: { key: string; label: string }[];
-  onChange?: () => void;
+  startContent?: React.ReactNode;
+  endContent?: React.ReactNode;
+  className?: string;
 }
 
-export default function AppSelect({
+export default function Textarea({
   name,
   variant = 'bordered',
-  options = [],
-  onChange,
+  labelPlacement,
+  className,
   ...props
 }: IProps) {
   const {
-    setValue,
+    register,
     formState: { errors },
   } = useFormContext();
 
-  const selectedValue = useWatch({
-    name,
-  });
-
   return (
-    <Select
+    <NextUITextarea
+      {...register(name)}
       errorMessage={errors[name]?.message as string}
       isInvalid={!!errors[name]}
       variant={variant}
-      selectedKeys={[selectedValue]}
-      onChange={(e) => {
-        setValue(name, e.target.value);
-        onChange?.();
-      }}
+      labelPlacement={labelPlacement}
+      className={className}
       {...props}
-    >
-      {options.map((option) => (
-        <SelectItem key={option.key}>{option.label}</SelectItem>
-      ))}
-    </Select>
+    />
   );
 }

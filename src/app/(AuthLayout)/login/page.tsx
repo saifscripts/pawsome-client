@@ -1,8 +1,8 @@
 'use client';
 
-import AppForm from '@/components/form/AppForm';
-import AppInput from '@/components/form/AppInput';
-import AppSubmit from '@/components/form/AppSubmit';
+import Form from '@/components/form/Form';
+import Input from '@/components/form/Input';
+import Submit from '@/components/form/Submit';
 import { useUserLogin } from '@/hooks/auth.hook';
 import { loginSchema } from '@/schemas/auth.schema';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center h-[calc(100svh-64px)]">
-      <AppForm
+      <Form
         onSubmit={onSubmit}
         formSchema={loginSchema}
         className="w-full max-w-md p-8 space-y-6 rounded-xl shadow-lg dark:border dark:border-divider m-4"
@@ -30,7 +30,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <AppInput
+        <Input
           name="email"
           label="Email"
           placeholder="Enter your email"
@@ -38,7 +38,7 @@ export default function LoginPage() {
         />
 
         <div className="space-y-2">
-          <AppInput
+          <Input
             name="password"
             type="password"
             label="Password"
@@ -50,14 +50,14 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <AppSubmit
+        <Submit
           variant="solid"
           color="primary"
           isLoading={isPending}
           className="rounded-lg"
         >
           Sign In
-        </AppSubmit>
+        </Submit>
 
         <div className="text-center text-sm text-default-600">
           Don't have an account?{' '}
@@ -68,7 +68,7 @@ export default function LoginPage() {
             Sign up
           </Link>
         </div>
-      </AppForm>
+      </Form>
     </div>
   );
 }

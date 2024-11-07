@@ -1,7 +1,7 @@
 'use client';
 
-import { Textarea } from '@nextui-org/input';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { Input as NextUIInput } from '@nextui-org/input';
+import { useFormContext } from 'react-hook-form';
 
 interface IProps {
   name: string;
@@ -23,7 +23,7 @@ interface IProps {
   className?: string;
 }
 
-export default function AppTextarea({
+export default function Input({
   name,
   variant = 'bordered',
   labelPlacement,
@@ -31,16 +31,13 @@ export default function AppTextarea({
   ...props
 }: IProps) {
   const {
-    setValue,
+    register,
     formState: { errors },
   } = useFormContext();
 
-  const value = useWatch({ name });
-
   return (
-    <Textarea
-      value={value}
-      onChange={(e) => setValue(name, e.target.value)}
+    <NextUIInput
+      {...register(name)}
       errorMessage={errors[name]?.message as string}
       isInvalid={!!errors[name]}
       variant={variant}

@@ -1,4 +1,4 @@
-import AppSelect from '@/components/form/AppSelect';
+import Select from '@/components/form/Select';
 import { useWatch } from 'react-hook-form';
 
 const ageOptions = {
@@ -23,7 +23,7 @@ export default function SelectAge() {
   const pet = useWatch({ name: 'pet' });
 
   return (
-    <AppSelect
+    <Select
       label="Age"
       name="age"
       options={ageOptions[pet as keyof typeof ageOptions]}

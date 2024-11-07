@@ -16,9 +16,9 @@ import {
 import { MessageCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
-import AppForm from '../form/AppForm';
-import AppInput from '../form/AppInput';
-import AppSubmit from '../form/AppSubmit';
+import Form from '../form/Form';
+import Input from '../form/Input';
+import Submit from '../form/Submit';
 import CommentCard from './CommentCard';
 
 export default function CommentsModal({
@@ -115,18 +115,18 @@ export default function CommentsModal({
             ))}
           </ModalBody>
           <ModalFooter className="block w-full">
-            <AppForm
+            <Form
               onSubmit={handleSubmit}
               defaultValues={defaultValues}
               setForm={setForm}
               formSchema={createCommentSchema}
               className="flex gap-4"
             >
-              <AppInput name="content" label="Comment" size="sm" />
-              <AppSubmit isLoading={isPending} className="w-auto" size="lg">
+              <Input name="content" label="Comment" size="sm" />
+              <Submit isLoading={isPending} className="w-auto" size="lg">
                 Add
-              </AppSubmit>
-            </AppForm>
+              </Submit>
+            </Form>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -3,9 +3,9 @@ import { updateCommentSchema } from '@/schemas/comment.schema';
 import { IComment } from '@/types';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import AppForm from '../form/AppForm';
-import AppInput from '../form/AppInput';
-import AppSubmit from '../form/AppSubmit';
+import Form from '../form/Form';
+import Input from '../form/Input';
+import Submit from '../form/Submit';
 
 export default function EditComment({
   comment,
@@ -36,16 +36,16 @@ export default function EditComment({
   }, [isPending, isSuccess, updatedComment]);
 
   return (
-    <AppForm
+    <Form
       onSubmit={handleSubmit}
       defaultValues={defaultValues}
       formSchema={updateCommentSchema}
       className="flex gap-4"
     >
-      <AppInput name="content" label="Comment" size="sm" />
-      <AppSubmit isLoading={isPending} className="w-auto" size="lg">
+      <Input name="content" label="Comment" size="sm" />
+      <Submit isLoading={isPending} className="w-auto" size="lg">
         Edit
-      </AppSubmit>
-    </AppForm>
+      </Submit>
+    </Form>
   );
 }

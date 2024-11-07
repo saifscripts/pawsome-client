@@ -1,9 +1,9 @@
 'use client';
 
-import AppForm from '@/components/form/AppForm';
-import AppInput from '@/components/form/AppInput';
-import AppSubmit from '@/components/form/AppSubmit';
-import AppTextarea from '@/components/form/AppTextarea';
+import Form from '@/components/form/Form';
+import Input from '@/components/form/Input';
+import Submit from '@/components/form/Submit';
+import Textarea from '@/components/form/Textarea';
 import { title } from '@/components/primitives';
 import { contactSchema } from '@/schemas/contact.schema';
 import { Divider } from '@nextui-org/divider';
@@ -91,16 +91,16 @@ export default function ContactPage() {
             possible.
           </p>
         </div>
-        <AppForm onSubmit={() => {}} formSchema={contactSchema}>
+        <Form onSubmit={() => {}} formSchema={contactSchema}>
           <motion.div variants={itemVariants}>
-            <AppInput
+            <Input
               name="name"
               label="Name"
               placeholder="Enter your full name"
             />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <AppInput
+            <Input
               name="email"
               type="email"
               label="Email"
@@ -108,7 +108,7 @@ export default function ContactPage() {
             />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <AppTextarea
+            <Textarea
               name="message"
               label="Message"
               placeholder="Describe your inquiry or support request"
@@ -119,9 +119,9 @@ export default function ContactPage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <AppSubmit color="primary">Send Message</AppSubmit>
+            <Submit color="primary">Send Message</Submit>
           </motion.div>
-        </AppForm>
+        </Form>
       </motion.div>
     </motion.div>
   );

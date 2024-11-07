@@ -1,6 +1,6 @@
 'use client';
 
-import AppForm from '@/components/form/AppForm';
+import Form from '@/components/form/Form';
 import { Button } from '@nextui-org/button';
 import { DownloadIcon, PawPrint } from 'lucide-react';
 import { useState } from 'react';
@@ -57,7 +57,7 @@ export default function NutritionCalculatorPage() {
               Calculate your pet's daily nutritional requirements
             </p>
           </header>
-          <AppForm onSubmit={handleSubmit} className="p-6 space-y-4">
+          <Form onSubmit={handleSubmit} className="p-6 space-y-4">
             <div className="space-y-4">
               <SelectPet />
               <SelectAge />
@@ -65,7 +65,7 @@ export default function NutritionCalculatorPage() {
               <SelectActivity />
               <Calculate />
             </div>
-          </AppForm>
+          </Form>
         </div>
         <div className="col-span-3">
           {results ? (

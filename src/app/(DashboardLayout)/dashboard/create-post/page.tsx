@@ -1,11 +1,11 @@
 'use client';
 
-import AppContentBox from '@/components/form/AppContentBox';
-import AppForm from '@/components/form/AppForm';
-import AppInput from '@/components/form/AppInput';
-import AppSelect from '@/components/form/AppSelect';
-import AppSubmit from '@/components/form/AppSubmit';
-import AppTextarea from '@/components/form/AppTextarea';
+import ContentBox from '@/components/form/ContentBox';
+import Form from '@/components/form/Form';
+import Input from '@/components/form/Input';
+import Select from '@/components/form/Select';
+import Submit from '@/components/form/Submit';
+import Textarea from '@/components/form/Textarea';
 import { ContentType, PostCategoryOptions } from '@/constants';
 import { useCreatePost } from '@/hooks/post.hook';
 import { createPostSchema } from '@/schemas/post.schema';
@@ -64,20 +64,20 @@ export default function CreatePost() {
   return (
     <>
       <Topbar />
-      <AppForm
+      <Form
         className="space-y-6 p-6"
         onSubmit={handleSubmit}
         setForm={setForm}
         defaultValues={defaultValues}
         formSchema={createPostSchema}
       >
-        <AppInput name="title" label="Title" />
-        <AppTextarea
+        <Input name="title" label="Title" />
+        <Textarea
           name="summary"
           label="Post Summary"
           placeholder="Write a brief summary of your post, between 50 and 300 characters."
         />
-        <AppContentBox name="content" />
+        <ContentBox name="content" />
 
         {imageDataUrl ? (
           <div className="relative size-48 rounded-xl border-2 border-dashed border-default-300 p-2">
@@ -105,21 +105,17 @@ export default function CreatePost() {
           </div>
         )}
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
-          <AppSelect
-            name="isPremium"
-            label="Content Type"
-            options={ContentType}
-          />
-          <AppSelect
+          <Select name="isPremium" label="Content Type" options={ContentType} />
+          <Select
             name="category"
             label="Category"
             placeholder="Select a Category"
             options={PostCategoryOptions}
           />
         </div>
-        <AppInput name="tags" label="Tags" placeholder="Tips, Care, Grooming" />
-        <AppSubmit isLoading={isPending}>Create Post</AppSubmit>
-      </AppForm>
+        <Input name="tags" label="Tags" placeholder="Tips, Care, Grooming" />
+        <Submit isLoading={isPending}>Create Post</Submit>
+      </Form>
     </>
   );
 }

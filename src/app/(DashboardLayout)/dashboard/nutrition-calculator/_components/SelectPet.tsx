@@ -1,6 +1,6 @@
 'use client';
 
-import AppSelect from '@/components/form/AppSelect';
+import Select from '@/components/form/Select';
 import { useEffect } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
@@ -20,5 +20,5 @@ export default function SelectPet() {
     setValue('activity', '');
   }, [pet]);
 
-  return <AppSelect label="Pet" name="pet" options={petOptions} />;
+  return <Select label="Pet" name="pet" options={petOptions} />;
 }

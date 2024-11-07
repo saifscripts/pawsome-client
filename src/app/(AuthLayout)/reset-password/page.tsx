@@ -1,8 +1,8 @@
 'use client';
 
-import AppForm from '@/components/form/AppForm';
-import AppInput from '@/components/form/AppInput';
-import AppSubmit from '@/components/form/AppSubmit';
+import Form from '@/components/form/Form';
+import Input from '@/components/form/Input';
+import Submit from '@/components/form/Submit';
 import { useResetPassword } from '@/hooks/auth.hook';
 import { resetPasswordSchema } from '@/schemas/auth.schema';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="flex items-center justify-center h-[calc(100svh-64px)]">
-      <AppForm
+      <Form
         onSubmit={onSubmit}
         formSchema={resetPasswordSchema}
         className="w-full max-w-md p-8 space-y-6 rounded-xl shadow-lg dark:border dark:border-divider m-4"
@@ -44,7 +44,7 @@ export default function ResetPasswordPage() {
           </p>
         </div>
 
-        <AppInput
+        <Input
           name="password"
           type="password"
           label="New Password"
@@ -52,14 +52,14 @@ export default function ResetPasswordPage() {
           className="rounded-lg"
         />
 
-        <AppSubmit
+        <Submit
           variant="solid"
           color="primary"
           isLoading={isPending}
           className="rounded-lg"
         >
           Reset Password
-        </AppSubmit>
+        </Submit>
 
         <div className="text-center text-sm text-default-600">
           Remember your password?{' '}
@@ -70,7 +70,7 @@ export default function ResetPasswordPage() {
             Sign in
           </Link>
         </div>
-      </AppForm>
+      </Form>
     </div>
   );
 }

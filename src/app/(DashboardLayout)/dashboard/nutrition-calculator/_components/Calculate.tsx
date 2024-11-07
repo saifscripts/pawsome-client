@@ -1,4 +1,4 @@
-import AppSubmit from '@/components/form/AppSubmit';
+import Submit from '@/components/form/Submit';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 export default function Calculate() {
@@ -6,12 +6,12 @@ export default function Calculate() {
   const data = useWatch({ control });
 
   return (
-    <AppSubmit
+    <Submit
       className="col-span-2"
       disabled={!data.pet || !data.age || !data.weight || !data.activity}
       size="lg"
     >
       Calculate
-    </AppSubmit>
+    </Submit>
   );
 }

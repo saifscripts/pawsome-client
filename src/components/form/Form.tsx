@@ -20,7 +20,7 @@ interface IProps {
   setForm?: Dispatch<SetStateAction<UseFormReturn | null>>;
 }
 
-export default function AppForm({
+export default function Form({
   children,
   defaultValues,
   formSchema,

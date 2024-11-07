@@ -18,7 +18,7 @@ interface IProps {
     | 'danger';
 }
 
-export default function AppSubmit({
+export default function Submit({
   children,
   isLoading,
   className,
@@ -28,6 +28,7 @@ export default function AppSubmit({
   const {
     formState: { isSubmitting },
   } = useFormContext();
+
   return (
     <Button
       isLoading={isSubmitting || isLoading}

@@ -9,7 +9,7 @@ interface IProps {
   name: string;
 }
 
-export default function AppContentBox({ name }: IProps) {
+export default function ContentBox({ name }: IProps) {
   const { setValue } = useFormContext();
   const content = useWatch({ name });
 

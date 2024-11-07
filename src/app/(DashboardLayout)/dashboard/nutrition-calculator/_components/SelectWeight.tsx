@@ -1,4 +1,4 @@
-import AppSelect from '@/components/form/AppSelect';
+import Select from '@/components/form/Select';
 import { useWatch } from 'react-hook-form';
 
 const weightOptions = {
@@ -23,7 +23,7 @@ export default function SelectWeight() {
   const pet = useWatch({ name: 'pet' });
 
   return (
-    <AppSelect
+    <Select
       label="Weight"
       name="weight"
       options={weightOptions[pet as keyof typeof weightOptions]}

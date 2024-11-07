@@ -1,8 +1,8 @@
 'use client';
 
-import AppForm from '@/components/form/AppForm';
-import AppInput from '@/components/form/AppInput';
-import AppSubmit from '@/components/form/AppSubmit';
+import Form from '@/components/form/Form';
+import Input from '@/components/form/Input';
+import Submit from '@/components/form/Submit';
 import { useMe, useUpdateProfile } from '@/hooks/user.hook';
 import { Button } from '@nextui-org/button';
 import {
@@ -56,18 +56,18 @@ export default function EditProfile() {
             Edit Profile
           </ModalHeader>
           <ModalBody>
-            <AppForm
+            <Form
               className="space-y-6 pb-4"
               onSubmit={handleSubmit}
               defaultValues={defaultValues}
             >
-              <AppInput name="name" label="Name" />
-              <AppInput name="email" label="Email" />
-              <AppInput name="phone" label="Phone" />
-              <AppSubmit color="primary" isLoading={isPending}>
+              <Input name="name" label="Name" />
+              <Input name="email" label="Email" />
+              <Input name="phone" label="Phone" />
+              <Submit color="primary" isLoading={isPending}>
                 Save Changes
-              </AppSubmit>
-            </AppForm>
+              </Submit>
+            </Form>
           </ModalBody>
         </ModalContent>
       </Modal>
