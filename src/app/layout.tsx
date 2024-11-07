@@ -1,11 +1,9 @@
+import { fontSans } from '@/config/fonts';
+import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
-
 import { Providers } from './providers';
-
-import { fontSans } from '@/config/fonts';
-import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: {
