@@ -91,7 +91,11 @@ export default function ContactPage() {
             possible.
           </p>
         </div>
-        <Form onSubmit={() => {}} formSchema={contactSchema}>
+        <Form
+          onSubmit={() => {}}
+          formSchema={contactSchema}
+          className="space-y-6"
+        >
           <motion.div variants={itemVariants}>
             <Input
               name="name"
