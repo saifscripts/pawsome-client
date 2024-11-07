@@ -52,8 +52,12 @@ export const getPosts = async (params: URLSearchParams) => {
 };
 
 export const getMyPosts = async () => {
-  const { data } = await axios.get(`/posts/my-posts`);
-  return data;
+  try {
+    const { data } = await axios.get(`/posts/my-posts`);
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
 };
 
 export const getTags = async (limit?: number) => {
@@ -79,16 +83,28 @@ export const editPost = async (options: { id: string; formData: FormData }) => {
 };
 
 export const deletePost = async (id: string) => {
-  const { data } = await axios.delete<IPostResponse>(`/posts/${id}`);
-  return data;
+  try {
+    const { data } = await axios.delete<IPostResponse>(`/posts/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
 };
 
 export const upvotePost = async (id: string) => {
-  const { data } = await axios.put<IPostResponse>(`/posts/${id}/upvote`);
-  return data;
+  try {
+    const { data } = await axios.put<IPostResponse>(`/posts/${id}/upvote`);
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
 };
 
 export const downvotePost = async (id: string) => {
-  const { data } = await axios.put<IPostResponse>(`/posts/${id}/downvote`);
-  return data;
+  try {
+    const { data } = await axios.put<IPostResponse>(`/posts/${id}/downvote`);
+    return data;
+  } catch (error) {
+    throw new Error((error as AxiosError<any>)?.response?.data?.message);
+  }
 };

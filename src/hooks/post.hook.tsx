@@ -9,7 +9,9 @@ import {
   upvotePost,
 } from '@/services/post.service';
 import { IPost, IPostResponse, IResponse } from '@/types';
+import { Button } from '@nextui-org/button';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 export const useGetPost = (id: string) => {
@@ -98,6 +100,8 @@ export const useDeletePost = () => {
 };
 
 export const useUpvotePost = (post: IPost) => {
+  const router = useRouter();
+
   return useMutation<any, Error, string>({
     mutationKey: ['POST'],
     mutationFn: upvotePost,
@@ -111,12 +115,28 @@ export const useUpvotePost = (post: IPost) => {
       }
     },
     onError: (error) => {
-      toast.error(error.message);
+      if (error.message === 'You are not authorized!') {
+        toast.error('You must be signed in to upvote a post!', {
+          action: (
+            <Button
+              onClick={() => router.push('/login')}
+              color="primary"
+              size="sm"
+            >
+              Sign In
+            </Button>
+          ),
+        });
+      } else {
+        toast.error(error.message);
+      }
     },
   });
 };
 
 export const useDownvotePost = (post: IPost) => {
+  const router = useRouter();
+
   return useMutation<any, Error, string>({
     mutationKey: ['POST'],
     mutationFn: downvotePost,
@@ -130,7 +150,21 @@ export const useDownvotePost = (post: IPost) => {
       }
     },
     onError: (error) => {
-      toast.error(error.message);
+      if (error.message === 'You are not authorized!') {
+        toast.error('You must be signed in to downvote a post!', {
+          action: (
+            <Button
+              onClick={() => router.push('/login')}
+              color="primary"
+              size="sm"
+            >
+              Sign In
+            </Button>
+          ),
+        });
+      } else {
+        toast.error(error.message);
+      }
     },
   });
 };
