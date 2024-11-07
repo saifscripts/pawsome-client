@@ -57,21 +57,31 @@ export default function PostCard({
             </div>
           </CardHeader>
           <CardBody className="p-4 text-small text-default-400 grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-4">
-            <div>
-              <h2 className="font-bold text-xl sm:text-2xl text-default-600 mb-1">
-                {post.title}
-              </h2>
-              <p className="text-xs sm:text-sm">{post.summary}</p>
+            <div className="flex flex-col justify-between">
+              <div>
+                <h2 className="font-bold text-xl sm:text-2xl text-default-600 mb-1">
+                  {post.title}
+                </h2>
+                <p className="text-xs sm:text-sm">{post.summary}</p>
+              </div>
+              <div className="flex gap-2">
+                <Chip variant="flat">#{post.category}</Chip>
+                {post.tags?.map((tag) => (
+                  <Chip variant="flat" key={tag}>
+                    #{tag}
+                  </Chip>
+                ))}
+              </div>
             </div>
-            <picture className="flex-1">
+            <div className="flex-1 w-full aspect-square rounded-lg overflow-hidden">
               <Image
                 height={160}
                 width={160}
                 src={post?.featuredImage}
                 alt={post.title}
-                className="rounded-lg w-full object-cover"
+                className="rounded-lg w-full h-full object-cover object-center"
               />
-            </picture>
+            </div>
           </CardBody>
           <Divider />
           <CardFooter className="w-full block">

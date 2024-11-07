@@ -150,14 +150,14 @@ export default function Feed() {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto space-y-4">
+      <div className="max-w-3xl mx-auto space-y-6">
         {posts?.length > 0 &&
           posts.map((post) => (
             <PostCard key={post._id} post={post} author={post.author} />
           ))}
 
         {hasMore && (
-          <div ref={loader} className="space-y-4">
+          <div ref={loader} className="space-y-6">
             <PostCardSkeleton />
             <PostCardSkeleton />
           </div>
