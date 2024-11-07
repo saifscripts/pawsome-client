@@ -27,13 +27,13 @@ export default function PostCard({
   return (
     <div onClick={() => route.push(`/posts/${post._id}`)}>
       <Card className="cursor-pointer dark:hover:bg-default-100 hover:shadow-large hover:shadow-default-200">
-        <CardHeader className="flex justify-between items-center">
+        <CardHeader className="flex flex-col xs:flex-row gap-4 justify-between items-center">
           <UserCard
             user={author}
             className="w-full sm:w-auto px-3 py-2 rounded-full"
           />
 
-          <div className="flex gap-3 sm:gap-5 items-center mt-2 sm:mt-0">
+          <div className="flex gap-3 sm:gap-5 items-center">
             {post.isPremium ? (
               <Chip
                 color="warning"

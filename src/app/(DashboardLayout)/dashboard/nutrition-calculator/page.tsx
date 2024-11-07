@@ -44,7 +44,7 @@ export default function NutritionCalculatorPage() {
 
   return (
     <div className="p-4">
-      <div className="grid grid-cols-5 max-w-7xl mx-auto rounded-lg border border-divider">
+      <div className="grid grid-cols-1 xl:grid-cols-5 w-full rounded-lg border border-divider">
         <div className="col-span-2 border-r border-divider">
           <header className="p-6 border-b border-divider">
             <div className="flex items-center gap-3">
@@ -57,15 +57,14 @@ export default function NutritionCalculatorPage() {
               Calculate your pet's daily nutritional requirements
             </p>
           </header>
-          <AppForm
-            onSubmit={handleSubmit}
-            className="p-6 grid grid-cols-2 gap-4"
-          >
-            <SelectPet />
-            <SelectAge />
-            <SelectWeight />
-            <SelectActivity />
-            <Calculate />
+          <AppForm onSubmit={handleSubmit} className="p-6 space-y-4">
+            <div className="space-y-4">
+              <SelectPet />
+              <SelectAge />
+              <SelectWeight />
+              <SelectActivity />
+              <Calculate />
+            </div>
           </AppForm>
         </div>
         <div className="col-span-3">
@@ -173,8 +172,10 @@ export default function NutritionCalculatorPage() {
                 No Results Yet
               </h2>
               <p className="text-default-500 max-w-md">
-                Fill out the form on the left to calculate your pet's
-                nutritional requirements. The results will appear here.
+                Fill out the form on the{' '}
+                <span className="hidden xl:inline">left</span>{' '}
+                <span className="inline xl:hidden">top</span> to calculate your
+                pet's nutritional requirements. The results will appear here.
               </p>
             </div>
           )}

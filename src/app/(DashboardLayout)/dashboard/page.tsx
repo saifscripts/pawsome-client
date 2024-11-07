@@ -1,4 +1,3 @@
-import { title } from '@/components/primitives';
 import { getCurrentUser } from '@/services/auth.service';
 import { IUserRole } from '@/types';
 import Link from 'next/link';
@@ -8,8 +7,10 @@ export default async function DashboardPage() {
   const user = await getCurrentUser();
 
   return (
-    <div className="flex flex-col items-center pt-10">
-      <h1 className={title()}>Welcome to Dashboard</h1>
+    <div className="flex flex-col items-center py-10">
+      <h1 className="text-2xl sm:text-3xl text-center font-semibold">
+        Welcome to Dashboard
+      </h1>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 mt-10 w-full max-w-3xl px-4">
         {sidebarGrid[user?.role as IUserRole].flatMap((link) => (

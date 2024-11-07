@@ -1,4 +1,5 @@
 import { useFollowUser, useMe, useUnfollowUser } from '@/hooks/user.hook';
+import { cn } from '@/lib/cn';
 import { Button } from '@nextui-org/button';
 
 export default function FollowButton({ userId }: { userId: string }) {
@@ -21,9 +22,9 @@ export default function FollowButton({ userId }: { userId: string }) {
 
   return (
     <Button
-      className={
-        isFollowed ? 'bg-transparent text-foreground border-default-200' : ''
-      }
+      className={cn({
+        'bg-transparent text-foreground border-default-200': isFollowed,
+      })}
       color="primary"
       radius="full"
       size="sm"

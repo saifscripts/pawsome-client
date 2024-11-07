@@ -120,7 +120,7 @@ export default function AllPayments() {
 
   return (
     <Table
-      aria-label="Example table with dynamic content"
+      aria-label="Payments Table"
       isStriped
       bottomContent={
         data?.meta?.totalPages && data?.meta?.totalPages > 1 ? (
@@ -142,7 +142,7 @@ export default function AllPayments() {
         ) : undefined
       }
       classNames={{
-        wrapper: 'min-h-[222px]',
+        wrapper: 'w-full max-w-screen overflow-x-auto',
       }}
     >
       <TableHeader columns={columns}>
