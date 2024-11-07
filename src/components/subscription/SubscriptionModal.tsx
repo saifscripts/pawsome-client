@@ -1,4 +1,4 @@
-import { useSubscriptionModal } from '@/contexts/subscription-modal.context';
+import { useSubscriptionModal } from '@/contexts/subscription.context';
 import { useInitiatePayment } from '@/hooks/subscription.hook';
 import { BDT } from '@/utils/format';
 import { Button } from '@nextui-org/button';

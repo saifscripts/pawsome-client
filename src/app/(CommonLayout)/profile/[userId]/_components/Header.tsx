@@ -2,7 +2,7 @@
 
 import FollowButton from '@/components/post/FollowButton';
 import { useAuth } from '@/contexts/auth.context';
-import { useUploadAvatar, useUser } from '@/hooks/profile.hook';
+import { useUploadAvatar, useUser } from '@/hooks/user.hook';
 import { Spinner } from '@nextui-org/spinner';
 import { format } from 'date-fns';
 import { PencilIcon } from 'lucide-react';

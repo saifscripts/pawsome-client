@@ -1,7 +1,11 @@
-import { initiatePayment } from '@/services/subscription.service';
-import { IInitiatePayment } from '@/types';
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import {
+  getMySubscriptions,
+  initiatePayment,
+} from '@/services/subscription.service';
+import { IInitiatePayment, IPayment, IResponse } from '@/types';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export const useInitiatePayment = () => {
@@ -20,5 +24,20 @@ export const useInitiatePayment = () => {
     onError: (error) => {
       toast.error(error.message);
     },
+  });
+};
+
+export const useGetMySubscriptions = () => {
+  const [page, setPage] = useState('1');
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setPage(searchParams.get('page') || '1');
+  }, [searchParams]);
+
+  return useQuery<any, Error, IResponse<IPayment[]>>({
+    queryKey: ['MY_SUBSCRIPTIONS', page],
+    queryFn: async () => await getMySubscriptions(page),
+    placeholderData: keepPreviousData,
   });
 };

@@ -7,12 +7,22 @@ interface IProps {
   isLoading?: boolean;
   className?: string;
   size?: 'sm' | 'md' | 'lg' | undefined;
+  disabled?: boolean;
+  variant?: 'solid' | 'bordered' | 'light' | 'flat' | 'faded' | 'shadow';
+  color?:
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'warning'
+    | 'danger';
 }
 
 export default function AppSubmit({
   children,
   isLoading,
   className,
+  disabled,
   ...props
 }: IProps) {
   const {
@@ -21,6 +31,7 @@ export default function AppSubmit({
   return (
     <Button
       isLoading={isSubmitting || isLoading}
+      disabled={disabled || isSubmitting || isLoading}
       type="submit"
       className={cn('w-full', className)}
       {...props}

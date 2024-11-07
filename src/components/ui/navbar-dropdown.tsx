@@ -24,7 +24,9 @@ export default function NavbarDropdown() {
   if (!user) {
     return (
       <Link href="/login">
-        <Button>Login</Button>
+        <Button variant="solid" color="primary" className="rounded-lg">
+          Sign in
+        </Button>
       </Link>
     );
   }

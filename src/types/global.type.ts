@@ -11,6 +11,12 @@ export interface IResponse<T> {
   success: boolean;
   message: string;
   data: T;
+  meta?: {
+    total: number;
+    page: number;
+    totalPages: number;
+    limit: number;
+  };
 }
 
 export type IAuthResponse = IResponse<{

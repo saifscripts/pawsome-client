@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser } from '@/hooks/profile.hook';
+import { useUser } from '@/hooks/user.hook';
 import { Button } from '@nextui-org/button';
 import { useRouter } from 'next/navigation';
 

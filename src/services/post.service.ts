@@ -51,6 +51,11 @@ export const getPosts = async (params: URLSearchParams) => {
   return res.json();
 };
 
+export const getMyPosts = async () => {
+  const { data } = await axios.get(`/posts/my-posts`);
+  return data;
+};
+
 export const getTags = async (limit?: number) => {
   const searchParams = new URLSearchParams();
   if (limit) searchParams.set('limit', String(limit));

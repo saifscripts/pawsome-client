@@ -11,7 +11,7 @@ export default function CreatePostButton() {
   if (!user) return null;
 
   return (
-    <Link href="/create-post">
+    <Link href="/dashboard/create-post">
       <Button variant="flat" color="primary">
         <PlusIcon />
         Create Post

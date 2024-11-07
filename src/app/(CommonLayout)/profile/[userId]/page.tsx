@@ -1,7 +1,7 @@
 'use client';
 
 import PostCard from '@/components/post/PostCard';
-import { useUser } from '@/hooks/profile.hook';
+import { useUser } from '@/hooks/user.hook';
 
 export default function PostsPage() {
   const { data } = useUser();

@@ -1,7 +1,8 @@
 'use client';
 
 import AuthProvider from '@/contexts/auth.context';
-import SubscriptionModalProvider from '@/contexts/subscription-modal.context';
+import DeletePostModalProvider from '@/contexts/delete-post.context';
+import SubscriptionModalProvider from '@/contexts/subscription.context';
 import { NextUIProvider } from '@nextui-org/system';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
@@ -25,8 +26,12 @@ export function Providers({ children, themeProps }: ProvidersProps) {
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <SubscriptionModalProvider>
-            <Toaster />
-            <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+            <DeletePostModalProvider>
+              <Toaster />
+              <NextThemesProvider {...themeProps}>
+                {children}
+              </NextThemesProvider>
+            </DeletePostModalProvider>
           </SubscriptionModalProvider>
         </QueryClientProvider>
       </AuthProvider>

@@ -1,7 +1,7 @@
 'use client';
 
-import { useSubscriptionModal } from '@/contexts/subscription-modal.context';
-import { useMe } from '@/hooks/profile.hook';
+import { useSubscriptionModal } from '@/contexts/subscription.context';
+import { useMe } from '@/hooks/user.hook';
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { format } from 'date-fns';
@@ -11,10 +11,12 @@ import {
   CrownIcon,
   SquareArrowOutUpRightIcon,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function SubscriptionCard() {
   const { onOpen } = useSubscriptionModal();
   const { data } = useMe();
+  const router = useRouter();
 
   const user = data?.data;
 
@@ -35,9 +37,14 @@ export default function SubscriptionCard() {
           </div>
         </CardBody>
         <CardFooter className="p-1">
-          <Button onPress={onOpen} size="sm" color="primary" variant="bordered">
+          <Button
+            onPress={() => router.push('/dashboard/my-subscriptions')}
+            size="sm"
+            color="primary"
+            variant="bordered"
+          >
             <SquareArrowOutUpRightIcon size={16} />
-            Payment History
+            My Subscriptions
           </Button>
         </CardFooter>
       </Card>

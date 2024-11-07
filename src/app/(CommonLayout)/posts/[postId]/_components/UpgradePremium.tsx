@@ -1,5 +1,5 @@
 'use client';
-import { useSubscriptionModal } from '@/contexts/subscription-modal.context';
+import { useSubscriptionModal } from '@/contexts/subscription.context';
 import { Button } from '@nextui-org/button';
 import { CrownIcon } from 'lucide-react';
 

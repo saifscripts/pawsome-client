@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser } from '@/hooks/profile.hook';
+import { useUser } from '@/hooks/user.hook';
 import { Chip } from '@nextui-org/chip';
 import { Tabs as NextTabs, Tab } from '@nextui-org/tabs';
 import { SquarePenIcon, UserCheckIcon, UserPlusIcon } from 'lucide-react';

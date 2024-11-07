@@ -1,4 +1,4 @@
-import { useFollowUser, useMe, useUnfollowUser } from '@/hooks/profile.hook';
+import { useFollowUser, useMe, useUnfollowUser } from '@/hooks/user.hook';
 import { Button } from '@nextui-org/button';
 
 export default function FollowButton({ userId }: { userId: string }) {

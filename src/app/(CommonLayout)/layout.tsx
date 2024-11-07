@@ -1,23 +1,19 @@
 import '@/styles/globals.css';
 
 import { Navbar } from '@/components/ui/navbar';
+import Sidebar from './_components/Sidebar';
 
 export default function RootLayout({
   children,
-  leftSidebar,
-  rightSidebar,
 }: {
   children: React.ReactNode;
-  leftSidebar: React.ReactNode;
-  rightSidebar: React.ReactNode;
 }) {
   return (
     <div className="h-[100svh] overflow-hidden">
       <Navbar />
       <div className="h-[calc(100svh-64px)] overflow-hidden flex flex-nowrap">
-        {leftSidebar}
+        <Sidebar />
         <main className="h-full overflow-y-auto flex-1">{children}</main>
-        {rightSidebar}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { title } from '@/components/primitives';
 import UserCard from '@/components/user/UserCard';
-import { useMe } from '@/hooks/profile.hook';
+import { useMe } from '@/hooks/user.hook';
 
 export default function FollowingPage() {
   const { data } = useMe();

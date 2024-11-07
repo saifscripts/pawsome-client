@@ -32,3 +32,9 @@
   background: #2d3643;
   border-radius: 4px;
 }
+
+@layer base {
+  img {
+    display: initial;
+  }
+}

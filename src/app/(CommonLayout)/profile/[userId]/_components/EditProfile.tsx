@@ -3,7 +3,7 @@
 import AppForm from '@/components/form/AppForm';
 import AppInput from '@/components/form/AppInput';
 import AppSubmit from '@/components/form/AppSubmit';
-import { useMe, useUpdateProfile } from '@/hooks/profile.hook';
+import { useMe, useUpdateProfile } from '@/hooks/user.hook';
 import { Button } from '@nextui-org/button';
 import {
   Modal,

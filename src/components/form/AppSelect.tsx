@@ -18,12 +18,14 @@ interface IProps {
   labelPlacement?: 'inside' | 'outside' | 'outside-left';
   placeholder?: string;
   options: { key: string; label: string }[];
+  onChange?: () => void;
 }
 
 export default function AppSelect({
   name,
   variant = 'bordered',
   options = [],
+  onChange,
   ...props
 }: IProps) {
   const {
@@ -41,7 +43,10 @@ export default function AppSelect({
       isInvalid={!!errors[name]}
       variant={variant}
       selectedKeys={[selectedValue]}
-      onChange={(e) => setValue(name, e.target.value)}
+      onChange={(e) => {
+        setValue(name, e.target.value);
+        onChange?.();
+      }}
       {...props}
     >
       {options.map((option) => (

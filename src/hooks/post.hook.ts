@@ -3,6 +3,7 @@ import {
   deletePost,
   downvotePost,
   editPost,
+  getMyPosts,
   getPost,
   getTags,
   upvotePost,
@@ -15,6 +16,13 @@ export const useGetPost = (id: string) => {
   return useQuery<any, Error, IPostResponse>({
     queryKey: ['POST'],
     queryFn: async () => await getPost(id),
+  });
+};
+
+export const useGetMyPosts = () => {
+  return useQuery<any, Error, IResponse<IPost[]>>({
+    queryKey: ['MY_POSTS'],
+    queryFn: async () => await getMyPosts(),
   });
 };
 
@@ -77,6 +85,7 @@ export const useDeletePost = () => {
       if (data?.success) {
         queryClient.invalidateQueries({ queryKey: ['POST'] });
         queryClient.invalidateQueries({ queryKey: ['USER'] });
+        queryClient.invalidateQueries({ queryKey: ['MY_POSTS'] });
         toast.success('Post deleted successfully!');
       } else {
         toast.error(data?.message);

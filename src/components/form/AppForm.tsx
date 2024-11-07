@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import {
@@ -38,7 +39,10 @@ export default function AppForm({
 
   return (
     <FormProvider {...form}>
-      <form className={className} onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className={cn('space-y-6', className)}
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         {children}
       </form>
     </FormProvider>
