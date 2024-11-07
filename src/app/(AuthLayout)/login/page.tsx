@@ -21,7 +21,7 @@ export default function LoginPage() {
       <AppForm
         onSubmit={onSubmit}
         formSchema={loginSchema}
-        className="w-full max-w-md p-8 space-y-6 rounded-xl shadow-lg dark:border dark:border-divider"
+        className="w-full max-w-md p-8 space-y-6 rounded-xl shadow-lg dark:border dark:border-divider m-4"
       >
         <div className="text-center">
           <h1 className="text-2xl font-bold text-default-800">Welcome Back</h1>

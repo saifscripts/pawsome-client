@@ -118,6 +118,14 @@ const generateMenuItems = (user: IUser | null, pathname: string) => {
       label: 'Contact Us',
       href: '/contact',
     },
+    {
+      label: 'Sign In',
+      href: '/login',
+    },
+    {
+      label: 'Sign Up',
+      href: '/register',
+    },
   ];
 
   return menu;

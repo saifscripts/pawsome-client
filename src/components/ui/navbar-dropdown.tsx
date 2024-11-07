@@ -23,7 +23,7 @@ export default function NavbarDropdown() {
 
   if (!user) {
     return (
-      <Link href="/login">
+      <Link href="/login" className="hidden sm:block">
         <Button variant="solid" color="primary" className="rounded-lg">
           Sign in
         </Button>
