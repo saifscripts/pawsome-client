@@ -17,7 +17,7 @@ const sidebarLinks = {
       title: 'Menu',
       links: [
         {
-          title: 'Home',
+          title: 'Dashboard',
           icon: <HomeIcon size={16} />,
           path: '/dashboard',
         },
@@ -66,7 +66,7 @@ const sidebarLinks = {
   ],
   [USER_ROLE.ADMIN]: [
     {
-      title: 'Menu',
+      title: 'Dashboard',
       links: [
         {
           title: 'Home',

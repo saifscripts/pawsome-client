@@ -10,7 +10,7 @@ export default async function Sidebar() {
   const user = await getCurrentUser();
 
   return (
-    <aside className="w-[300px] h-full overflow-y-auto border-r border-divider p-4">
+    <aside className="hidden lg:block w-[300px] h-full overflow-y-auto border-r border-divider p-4">
       {sidebarLinks[user?.role as IUserRole].map((menu) => (
         <Fragment key={menu.title}>
           <SidebarMenu title={menu.title}>

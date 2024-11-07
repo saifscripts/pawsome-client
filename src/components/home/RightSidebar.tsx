@@ -84,7 +84,7 @@ export default function RightSidebar() {
   };
 
   return (
-    <aside className="w-[300px] h-[calc(100svh-64px)] overflow-y-auto border-l border-divider p-4">
+    <aside className="hidden md:block w-[300px] h-[calc(100svh-64px)] overflow-y-auto border-l border-divider p-4">
       <Accordion
         selectionMode="multiple"
         variant="bordered"

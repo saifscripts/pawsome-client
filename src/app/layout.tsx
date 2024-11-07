@@ -1,16 +1,13 @@
 import { fontSans } from '@/config/fonts';
-import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
 import clsx from 'clsx';
 import { Metadata, Viewport } from 'next';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
+  title: 'Pawsome | Pet Care Tips & Heartwarming Stories',
+  description:
+    'Dive into expert pet care tips on grooming, nutrition, and health. Explore inspiring stories of rescue, adoption, and the unbreakable bond between pets and their owners. Pawsome Insights offers practical advice and heartwarming tales for every pet lover!',
   icons: {
     icon: '/favicon.ico',
   },

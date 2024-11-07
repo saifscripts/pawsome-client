@@ -111,7 +111,7 @@ export default function SearchInput() {
         }
         onPress={onOpen}
       >
-        <span className="pr-5">Search...</span>
+        <span className="pr-5 hidden lg:block">Search...</span>
       </Button>
       <Modal
         size="xl"

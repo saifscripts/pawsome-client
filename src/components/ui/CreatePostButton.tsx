@@ -14,7 +14,7 @@ export default function CreatePostButton() {
     <Link href="/dashboard/create-post">
       <Button variant="flat" color="primary">
         <PlusIcon />
-        Create Post
+        <span className="hidden lg:block">Create Post</span>
       </Button>
     </Link>
   );
