@@ -2,10 +2,13 @@
 
 import UserCard from '@/components/user/UserCard';
 import { useUser } from '@/hooks/user.hook';
+import { UserCardSkeleton } from '../_components/ProfileSkeleton';
 
 export default function FollowingPage() {
-  const { data } = useUser();
+  const { data, isLoading } = useUser();
   const user = data?.data;
+
+  if (isLoading) return <UserCardSkeleton />;
 
   return (
     <div>

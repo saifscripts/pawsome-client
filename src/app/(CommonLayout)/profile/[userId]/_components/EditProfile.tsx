@@ -57,14 +57,16 @@ export default function EditProfile() {
           </ModalHeader>
           <ModalBody>
             <AppForm
-              className="space-y-6"
+              className="space-y-6 pb-4"
               onSubmit={handleSubmit}
               defaultValues={defaultValues}
             >
               <AppInput name="name" label="Name" />
               <AppInput name="email" label="Email" />
               <AppInput name="phone" label="Phone" />
-              <AppSubmit isLoading={isPending}>Save Changes</AppSubmit>
+              <AppSubmit color="primary" isLoading={isPending}>
+                Save Changes
+              </AppSubmit>
             </AppForm>
           </ModalBody>
         </ModalContent>
