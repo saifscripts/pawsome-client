@@ -9,6 +9,7 @@ import { Select, SelectItem } from '@nextui-org/select';
 import { XIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import PostCardSkeleton from '../post/PostCardSkeleton';
 
 export default function Feed() {
   const pathname = usePathname();
@@ -156,8 +157,9 @@ export default function Feed() {
           ))}
 
         {hasMore && (
-          <div ref={loader}>
-            <p>Loading more posts...</p>
+          <div ref={loader} className="space-y-4">
+            <PostCardSkeleton />
+            <PostCardSkeleton />
           </div>
         )}
       </div>
