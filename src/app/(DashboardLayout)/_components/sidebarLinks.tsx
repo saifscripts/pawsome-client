@@ -66,10 +66,10 @@ const sidebarLinks = {
   ],
   [USER_ROLE.ADMIN]: [
     {
-      title: 'Dashboard',
+      title: 'Menu',
       links: [
         {
-          title: 'Home',
+          title: 'Dashboard',
           icon: <HomeIcon size={16} />,
           path: '/dashboard',
         },
