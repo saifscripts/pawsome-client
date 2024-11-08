@@ -21,7 +21,7 @@ export default function UserCard({
         router.push(`/profile/${user._id}`);
       }}
       className={cn(
-        `flex items-center justify-between gap-4 w-full max-w-xl hover:bg-default-100 p-4 cursor-pointer`,
+        `flex items-center justify-between gap-4 w-full max-w-xl hover:bg-default-50 p-4 cursor-pointer`,
         className
       )}
     >
