@@ -1,10 +1,10 @@
 'use client';
 
-import { useCreateComment } from '@/hooks/comment.hook';
-import { createCommentSchema } from '@/schemas/comment.schema';
+import { useAuth } from '@/contexts/auth.context';
 import { IPost, IUser } from '@/types';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
+import { Divider } from '@nextui-org/divider';
 import {
   Modal,
   ModalBody,
@@ -14,12 +14,9 @@ import {
   useDisclosure,
 } from '@nextui-org/modal';
 import { MessageCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
-import Form from '../form/Form';
-import Input from '../form/Input';
-import Submit from '../form/Submit';
-import CommentCard from './CommentCard';
+import { useState } from 'react';
+import AddComment from './AddComment';
+import Comments from './Comments';
 
 export default function CommentsModal({
   post,
@@ -30,36 +27,16 @@ export default function CommentsModal({
 }) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [isFollowed, setIsFollowed] = useState(false);
-  const [form, setForm] = useState<UseFormReturn | null>(null);
-
-  const {
-    mutate: createComment,
-    isPending,
-    isSuccess,
-    data: comment,
-  } = useCreateComment();
-
-  const defaultValues = {
-    postId: post._id,
-    content: '',
-  };
-
-  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    data.postId = post._id;
-    createComment(data);
-  };
-
-  useEffect(() => {
-    if (!isPending && isSuccess && comment?.success) {
-      form!.reset(defaultValues);
-    }
-  }, [isPending, isSuccess, comment]);
+  const { user } = useAuth();
 
   return (
     <>
       <Button
         className="bg-default-200"
-        onPress={onOpen}
+        onClick={(e) => {
+          e.stopPropagation();
+          onOpen();
+        }}
         startContent={<MessageCircle size={18} />}
       >
         <p>{post?.comments?.length}</p>
@@ -70,8 +47,9 @@ export default function CommentsModal({
         onClose={onClose}
         scrollBehavior="inside"
         onOpenChange={onOpenChange}
+        onClick={(e) => e.stopPropagation()}
       >
-        <ModalContent>
+        <ModalContent onClick={(e) => e.stopPropagation()}>
           <ModalHeader className="block w-full pb-2">
             <div className="flex gap-2 justify-between pr-2">
               <div className="flex gap-5">
@@ -109,24 +87,12 @@ export default function CommentsModal({
               {post.title}
             </h2>
           </ModalHeader>
+          <Divider />
           <ModalBody>
-            {post?.comments?.map((comment) => (
-              <CommentCard key={comment._id} comment={comment} />
-            ))}
+            <Comments post={post} />
           </ModalBody>
           <ModalFooter className="block w-full">
-            <Form
-              onSubmit={handleSubmit}
-              defaultValues={defaultValues}
-              setForm={setForm}
-              formSchema={createCommentSchema}
-              className="flex gap-4"
-            >
-              <Input name="content" label="Comment" size="sm" />
-              <Submit isLoading={isPending} className="w-auto" size="lg">
-                Add
-              </Submit>
-            </Form>
+            {user && <AddComment post={post} />}
           </ModalFooter>
         </ModalContent>
       </Modal>

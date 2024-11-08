@@ -1,5 +1,6 @@
+import { useAuth } from '@/contexts/auth.context';
 import { useDeleteComment } from '@/hooks/comment.hook';
-import { IComment } from '@/types';
+import { IComment, IPost } from '@/types';
 import { Avatar } from '@nextui-org/avatar';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
@@ -17,18 +18,28 @@ import {
   useDisclosure,
 } from '@nextui-org/modal';
 import { EllipsisIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import EditComment from './EditComment';
 
-export default function CommentCard({ comment }: { comment: IComment }) {
+export default function CommentCard({
+  post,
+  comment,
+  editCommentId,
+  setEditCommentId,
+}: {
+  post: IPost;
+  comment: IComment;
+  editCommentId: string | null;
+  setEditCommentId: (id: string | null) => void;
+}) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const { user } = useAuth();
   const {
     mutate: deleteComment,
     isPending,
     isSuccess,
     data: deletedComment,
-  } = useDeleteComment();
-  const [mode, setMode] = useState('view');
+  } = useDeleteComment(post);
 
   useEffect(() => {
     if (!isPending && isSuccess && deletedComment?.success) {
@@ -38,7 +49,7 @@ export default function CommentCard({ comment }: { comment: IComment }) {
 
   return (
     <>
-      {mode === 'view' && (
+      {editCommentId !== comment._id && (
         <div className="flex gap-5">
           <Avatar
             isBordered
@@ -51,35 +62,42 @@ export default function CommentCard({ comment }: { comment: IComment }) {
               <h4 className="text-small font-semibold leading-none text-default-600">
                 {comment?.author?.name}
               </h4>
-              <p className="text-small tracking-tight text-default-400">
+              <p className="tracking-tight text-default-600">
                 {comment.content}
               </p>
             </div>
-            <Dropdown>
-              <DropdownTrigger>
-                <Button variant="bordered" isIconOnly>
-                  <EllipsisIcon />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Static Actions">
-                <DropdownItem onPress={() => setMode('edit')} key="edit">
-                  Edit
-                </DropdownItem>
-                <DropdownItem
-                  onPress={onOpen}
-                  key="delete"
-                  className="text-danger"
-                  color="danger"
-                >
-                  Delete
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            {comment.author._id === user?._id && (
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button variant="bordered" isIconOnly>
+                    <EllipsisIcon />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu aria-label="Static Actions">
+                  <DropdownItem
+                    onPress={() => setEditCommentId(comment._id!)}
+                    key="edit"
+                  >
+                    Edit
+                  </DropdownItem>
+                  <DropdownItem
+                    onPress={onOpen}
+                    key="delete"
+                    className="text-danger"
+                    color="danger"
+                  >
+                    Delete
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            )}
           </div>
         </div>
       )}
 
-      {mode === 'edit' && <EditComment comment={comment} setMode={setMode} />}
+      {editCommentId === comment._id && (
+        <EditComment comment={comment} setEditCommentId={setEditCommentId} />
+      )}
       <Divider className="my-2" />
       {/* Delete Comment Modal */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

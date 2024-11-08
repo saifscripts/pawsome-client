@@ -21,14 +21,19 @@ export default function PostCard({
   author: IUser;
 }) {
   const { user } = useAuth();
-  const route = useRouter();
+  const router = useRouter();
 
   const isMyPost = user?._id === author?._id;
 
   return (
     <FadeInElement>
-      <div onClick={() => route.push(`/posts/${post._id}`)}>
-        <Card className="cursor-pointer dark:hover:bg-default-100 hover:shadow-large hover:shadow-default-200">
+      <div>
+        <Card
+          isHoverable
+          isPressable
+          className="cursor-pointer"
+          onPress={() => router.push(`/posts/${post._id}`)}
+        >
           <CardHeader className="flex flex-col xs:flex-row gap-4 justify-between items-center">
             <UserCard
               user={author}
@@ -57,7 +62,7 @@ export default function PostCard({
             </div>
           </CardHeader>
           <CardBody className="p-4 text-small text-default-400 grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-4">
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-4 justify-between">
               <div>
                 <h2 className="font-bold text-xl sm:text-2xl text-default-600 mb-1">
                   {post.title}

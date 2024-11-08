@@ -32,10 +32,12 @@ export const useUploadAvatar = () => {
 };
 
 export const useMe = () => {
-  return useQuery({
+  const result = useQuery({
     queryKey: ['ME'],
     queryFn: async () => await getMe(),
   });
+
+  return { ...result, user: result.data?.data };
 };
 
 export const useUser = () => {

@@ -8,6 +8,7 @@ interface IProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg' | undefined;
   disabled?: boolean;
+  isIconOnly?: boolean;
   variant?: 'solid' | 'bordered' | 'light' | 'flat' | 'faded' | 'shadow';
   color?:
     | 'default'
