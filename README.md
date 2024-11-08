@@ -6,24 +6,24 @@
 
 ## Introduction
 
-Pet Care is a comprehensive platform designed to provide pet owners with valuable resources, expert advice, and a community-driven space to better care for their pets. This project aims to bridge the gap between pet owners and essential pet care information, fostering a community where users can access premium content, share experiences, and find guidance on a range of topics, from health and nutrition to training and daily care.
+Pawsome is a comprehensive platform designed to provide pet owners with valuable resources, expert advice, and a community-driven space to better care for their pets. This project aims to bridge the gap between pet owners and essential pet care information, fostering a community where users can access premium content, share experiences, and find guidance on a range of topics, from health and nutrition to training and daily care.
 
 ## Project Description
 
-The Pet Care platform offers users access to a mix of free and premium content, including detailed guides, tips, and personalized advice tailored to various types of pets. Users can choose between different subscription plans to unlock premium content and gain exclusive insights from pet care experts.
+The Pawsome platform offers users access to a mix of free and premium content, including detailed guides, tips, and personalized advice tailored to various types of pets. Users can choose between different subscription plans to unlock premium content and gain exclusive insights from pet care experts.
 
 ## Features
 
-- Responsive Design: Designed a mobile-friendly UI that achieves mobile usability across various devices and screen sizes.
-- Security: Secured 100% of access with RBAC, JWT managing 'rider' and 'admin' roles.
-- Validation: Ensured 100% data integrity via frontend and backend validation using Mongoose and form validation.
-- Rich Text Content Creation: Integrated a rich text editor, enabling users to create, edit, and share engaging pet care tips and stories, complete with image attachments for better engagement.
-- Payment Gateway Integration: Implemented payment integration with AAMARPAY/STRIPE, allowing users to access premium content and enabling authors to monetize exclusive insights.
-- Advanced Search Functionality: Developed an advanced search and filtering system that allows users to easily find relevant content, with results sorted by upvote count for improved relevance.
-- Social Interaction Features: Enabled users to upvote, downvote, and comment on posts, fostering community engagement and interaction among pet owners.
-- Dynamic News Feed: Created a real-time news feed showcasing the latest pet care tips and stories, with an infinite scroll feature for seamless content discovery.
-- User Following System: Implemented a following system that allows users to follow other pet owners, enhancing personalized content delivery from followed accounts.
-- Robust Administration Dashboard: Designed an admin dashboard for content and user management, allowing admins to control posts, monitor payment history, and manage user interactions efficiently.
+- Designed a mobile-friendly UI that achieves mobile usability across various devices and screen sizes.
+- Secured 100% of access with RBAC, JWT managing 'admin' and 'user' roles.
+- Ensured 100% data integrity via frontend and backend validation using Mongoose and form validation.
+- Integrated a rich text editor, enabling users to create, edit, and share engaging pet care tips and stories, complete with image attachments for better engagement.
+- Implemented payment integration with AAMARPAY, allowing users to access premium content and enabling authors to monetize exclusive insights.
+- Developed an advanced search and filtering system that allows users to easily find relevant content, with results sorted by upvote count for improved relevance.
+- Enabled users to upvote, downvote, and comment on posts, fostering community engagement and interaction among pet owners.
+- Created a real-time news feed showcasing the latest pet care tips and stories, with an infinite scroll feature for seamless content discovery.
+- Implemented a following system that allows users to follow other pet owners, enhancing personalized content delivery from followed accounts.
+- Designed an admin dashboard for content and user management, allowing admins to control posts, monitor payment history, and manage user interactions efficiently.
 
 ## Technology Stack
 
