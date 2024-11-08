@@ -8,7 +8,7 @@ export default function Topbar() {
   const router = useRouter();
 
   return (
-    <div className="flex gap-2 items-center p-2 border-b">
+    <div className="flex gap-2 items-center p-2 border-b border-divider">
       <Button onClick={() => router.back()} variant="light" isIconOnly>
         <ArrowLeftIcon size={18} />
       </Button>
