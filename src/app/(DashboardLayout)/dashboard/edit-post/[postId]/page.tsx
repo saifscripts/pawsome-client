@@ -122,45 +122,47 @@ export default function EditPostPage() {
         />
         <ContentBox name="content" />
 
-        <p className="">Featured Image</p>
-        {imageDataUrl ? (
-          <div className="relative w-full aspect-video rounded-xl border-2 border-dashed border-default-300 p-2">
-            <img
-              alt="item"
-              className="h-full w-full object-cover object-center rounded-lg"
-              src={imageDataUrl}
-            />
-            <Button
-              className="absolute top-0 right-0"
-              color="danger"
-              size="sm"
-              radius="full"
-              isIconOnly
-              onClick={handleImageRemove}
-            >
-              <XIcon />
-            </Button>
-          </div>
-        ) : (
-          <div className="min-w-fit flex-1">
-            <label
-              className="flex cursor-pointer items-center justify-center w-full aspect-video rounded-xl border-2 border-dashed border-default-300 p-2 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
-              htmlFor="image"
-            >
-              Upload image
-            </label>
-            <input
-              className="hidden"
-              id="image"
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleImageChange(e)}
-            />
-          </div>
-        )}
-        <p className="text-danger-400">
-          {(form?.formState?.errors?.featuredImage?.message as string) || ''}
-        </p>
+        <div className="space-y-2">
+          <p className="">Featured Image</p>
+          {imageDataUrl ? (
+            <div className="relative w-full max-w-lg aspect-video rounded-xl border-2 border-dashed border-default-300 p-2">
+              <img
+                alt="item"
+                className="h-full w-full object-cover object-center rounded-lg"
+                src={imageDataUrl}
+              />
+              <Button
+                className="absolute top-0 right-0"
+                color="danger"
+                size="sm"
+                radius="full"
+                isIconOnly
+                onClick={handleImageRemove}
+              >
+                <XIcon />
+              </Button>
+            </div>
+          ) : (
+            <div className="min-w-fit flex-1">
+              <label
+                className="flex cursor-pointer items-center justify-center w-full max-w-lg aspect-video rounded-xl border-2 border-dashed border-default-300 p-2 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
+                htmlFor="image"
+              >
+                Upload image
+              </label>
+              <input
+                className="hidden"
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange(e)}
+              />
+            </div>
+          )}
+          <p className="text-danger-400 text-small">
+            {(form?.formState?.errors?.featuredImage?.message as string) || ''}
+          </p>
+        </div>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
           <Select name="isPremium" label="Content Type" options={ContentType} />
           <Select

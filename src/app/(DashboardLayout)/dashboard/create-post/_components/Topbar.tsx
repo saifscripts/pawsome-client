@@ -12,7 +12,7 @@ export default function Topbar() {
       <Button onClick={() => router.back()} variant="light" isIconOnly>
         <ArrowLeftIcon size={18} />
       </Button>
-      <h1 className="text-2xl">Create New Post</h1>
+      <h1 className="text-2xl">Create Post</h1>
     </div>
   );
 }
