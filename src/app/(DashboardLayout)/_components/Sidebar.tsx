@@ -1,5 +1,6 @@
 import SidebarItem from '@/components/sidebar/SidebarItem';
 import SidebarMenu from '@/components/sidebar/SidebarMenu';
+import SubscriptionCard from '@/components/subscription/SubscriptionCard';
 import { getCurrentUser } from '@/services/auth.service';
 import { IUserRole } from '@/types';
 import { Divider } from '@nextui-org/divider';
@@ -21,6 +22,7 @@ export default async function Sidebar() {
           <Divider className="my-4" />
         </Fragment>
       ))}
+      <SubscriptionCard />
     </aside>
   );
 }
