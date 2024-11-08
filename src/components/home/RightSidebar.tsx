@@ -6,6 +6,7 @@ import { Button } from '@nextui-org/button';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Chip } from '@nextui-org/chip';
 import { Divider } from '@nextui-org/divider';
+import { Select, SelectItem } from '@nextui-org/select';
 import { FilterXIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
@@ -17,6 +18,16 @@ export default function RightSidebar() {
   const searchParams = useSearchParams();
 
   const { data: tags } = useGetTags();
+
+  const setParam = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   const appendParam = useCallback(
     (name: string, value: string) => {
@@ -84,9 +95,26 @@ export default function RightSidebar() {
     router.replace(pathname + '?' + params.toString());
   };
 
+  const handleSorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (!value) return;
+    const params = setParam('sort', value);
+    router.replace(pathname + '?' + params);
+  };
+
   return (
     <FadeInElement>
-      <aside className="hidden md:block w-[300px] h-[calc(100svh-64px)] overflow-y-auto border-l border-divider p-4">
+      <aside className="hidden md:block w-[300px] h-[calc(100svh-64px)] overflow-y-auto border-l border-divider p-4 space-y-4">
+        <Select
+          variant="bordered"
+          selectedKeys={[searchParams.get('sort') || '-createdAt']}
+          onChange={handleSorting}
+        >
+          <SelectItem key="-createdAt">Most Recent</SelectItem>
+          <SelectItem key="createdAt">Oldest</SelectItem>
+          <SelectItem key="-totalVotes">Most Voted</SelectItem>
+          <SelectItem key="-totalComments">Most Commented</SelectItem>
+        </Select>
         <Accordion
           selectionMode="multiple"
           variant="bordered"

@@ -5,10 +5,9 @@ import { getPosts } from '@/services/post.service';
 import { IPost } from '@/types';
 import { Button } from '@nextui-org/button';
 import { Chip } from '@nextui-org/chip';
-import { Select, SelectItem } from '@nextui-org/select';
 import { XIcon } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PostCardSkeleton from '../post/PostCardSkeleton';
 
 export default function Feed() {
@@ -84,23 +83,6 @@ export default function Feed() {
     }
   };
 
-  const setParam = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
-
-  const handleSorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    if (!value) return;
-    const params = setParam('sort', value);
-    router.replace(pathname + '?' + params);
-  };
-
   const handleReset = () => {
     const feed = searchParams.get('feed');
     const params = new URLSearchParams();
@@ -109,26 +91,11 @@ export default function Feed() {
   };
 
   return (
-    <section className="p-4 space-y-4 flex-1 h-[calc(100svh-64px)] overflow-y-auto">
-      <div className="space-y-2">
-        <div className="flex justify-between items-center gap-4">
-          <div className="flex gap-2 items-center flex-wrap">
-            {filters.length > 0 && (
-              <p className="text-small text-default-400">Showing results for</p>
-            )}
-          </div>
-          <Select
-            size="sm"
-            className="max-w-48"
-            selectedKeys={[searchParams.get('sort') || '-createdAt']}
-            onChange={handleSorting}
-          >
-            <SelectItem key="-createdAt">Most Recent</SelectItem>
-            <SelectItem key="createdAt">Oldest</SelectItem>
-            <SelectItem key="-totalVotes">Most Voted</SelectItem>
-            <SelectItem key="-totalComments">Most Commented</SelectItem>
-          </Select>
-        </div>
+    <section className="p-4 space-y-6 flex-1 h-[calc(100svh-64px)] overflow-y-auto">
+      <div className="space-y-2 max-w-3xl mx-auto">
+        {filters.length > 0 && (
+          <p className="text-small text-default-400">Showing results for</p>
+        )}
         <div className="flex gap-2 items-center flex-wrap">
           {filters.length > 0 && (
             <>
