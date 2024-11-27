@@ -13,9 +13,10 @@ export default function Votes({ post }: { post: IPost }) {
   const { user } = useAuth();
 
   return (
-    <div className="flex gap-2 items-center rounded-xl bg-default-200 p-1">
+    <div className="flex gap-3 items-center rounded-xl p-1">
       <Button
         isIconOnly
+        variant="light"
         className={cn('rounded-lg hover:text-success hover:bg-success/20', {
           'text-success': post.upvotes.includes(user!?._id),
         })}
@@ -25,13 +26,14 @@ export default function Votes({ post }: { post: IPost }) {
           upvotePost(post._id);
         }}
       >
-        <ArrowUpIcon size={18} />
+        <ArrowUpIcon size={24} />
       </Button>
       <span className="text-sm font-medium">
         {post.upvotes.length - post.downvotes.length}
       </span>
       <Button
         isIconOnly
+        variant="light"
         className={cn('rounded-lg hover:text-danger hover:bg-danger/20', {
           'text-danger': post.downvotes.includes(user!?._id),
         })}
@@ -41,7 +43,7 @@ export default function Votes({ post }: { post: IPost }) {
           downvotePost(post._id);
         }}
       >
-        <ArrowDownIcon size={18} />
+        <ArrowDownIcon size={24} />
       </Button>
     </div>
   );

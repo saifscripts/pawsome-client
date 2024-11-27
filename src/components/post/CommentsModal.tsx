@@ -32,12 +32,12 @@ export default function CommentsModal({
   return (
     <>
       <Button
-        className="bg-default-200"
+        variant="light"
         onClick={(e) => {
           e.stopPropagation();
           onOpen();
         }}
-        startContent={<MessageCircle size={18} />}
+        startContent={<MessageCircle size={20} />}
       >
         <p>{post?.comments?.length}</p>
       </Button>

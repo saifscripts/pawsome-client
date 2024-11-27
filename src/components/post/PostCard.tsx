@@ -31,7 +31,7 @@ export default function PostCard({
         <Card
           isHoverable
           isPressable
-          className="cursor-pointer"
+          className="cursor-pointer bg-default-50/50"
           onPress={() => router.push(`/posts/${post._id}`)}
         >
           <CardHeader className="flex flex-col xs:flex-row gap-4 justify-between items-center">
@@ -69,7 +69,7 @@ export default function PostCard({
                 </h2>
                 <p className="text-xs sm:text-sm">{post.summary}</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <Chip variant="flat">#{post.category}</Chip>
                 {post.tags?.map((tag) => (
                   <Chip variant="flat" key={tag}>

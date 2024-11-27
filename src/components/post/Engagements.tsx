@@ -9,8 +9,8 @@ import { toast } from 'sonner';
 
 export default function Engagements({ post }: { post: IPost }) {
   return (
-    <div className="flex gap-3 items-center justify-between">
-      <div className="flex gap-3 items-center">
+    <div className="flex gap-1 sm:gap-3 items-center justify-between">
+      <div className="flex gap-1 sm:gap-3 items-center">
         <Votes post={post} />
         <CommentsModal post={post} author={post.author} />
       </div>
