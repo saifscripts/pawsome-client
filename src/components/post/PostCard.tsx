@@ -88,7 +88,7 @@ export default function PostCard({
               />
             </div>
           </CardBody>
-          <Divider />
+          <Divider className="h-[0.5px] bg-divider/5" />
           <CardFooter className="w-full block">
             <Engagements post={post} />
           </CardFooter>
